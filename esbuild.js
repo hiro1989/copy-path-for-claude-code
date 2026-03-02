@@ -1,3 +1,4 @@
+// oxlint-disable-next-line typescript/no-require-imports -- allowed for esbuild config required
 const esbuild = require("esbuild")
 
 const production = process.argv.includes("--production")
@@ -14,6 +15,7 @@ const esbuildProblemMatcherPlugin = {
       console.log("[watch] build started")
     })
     build.onEnd((result) => {
+      // oxlint-disable-next-line unicorn/no-array-for-each -- allowed for default code
       result.errors.forEach(({ text, location }) => {
         console.error(`✘ [ERROR] ${text}`)
         console.error(`    ${location.file}:${location.line}:${location.column}:`)
@@ -48,7 +50,8 @@ async function main() {
   }
 }
 
-main().catch((e) => {
-  console.error(e)
+main().catch((error) => {
+  console.error(error)
+  // oxlint-disable-next-line unicorn/no-process-exit -- allowed for script entry point
   process.exit(1)
 })

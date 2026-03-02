@@ -9,29 +9,34 @@
   "main": "./dist/extension.js",
   "scripts": {
     "compile": "node esbuild.js",
-    "lint": "run-s lint:* lint-dry:tsc",
+    "lint": "run-s --continue-on-error lint:* lint-dry:tsc",
+    "lint-dry": "run-s lint-dry:format lint-dry:oxlint lint-dry:eslint lint-dry:tsc",
+    "lint-dry:format": "oxfmt --check",
+    "lint-dry:oxlint": "oxlint --max-warnings=0 .",
     "lint-dry:tsc": "tsc --noEmit --pretty false",
-    "lint:eslint": "eslint --cache --cache-location node_modules/.cache/eslint/ --cache-strategy content --max-warnings=0 --format unix --fix .",
     "lint:format": "oxfmt",
+    "lint:oxlint": "oxlint --format unix . --max-warnings=0 --fix",
     "package": "node esbuild.js --production",
-    "test": "vscode-test",
+    "test": "run-s compile test:compile test:run",
+    "test:compile": "tsc",
+    "test:run": "vscode-test",
     "vscode:prepublish": "pnpm run package",
     "watch": "run-p watch:*",
     "watch:esbuild": "node esbuild.js --watch"
   },
   "devDependencies": {
+    "@tsconfig/strictest": "2.0.8",
     "@types/mocha": "10.0.10",
     "@types/node": "24.11.0",
     "@types/vscode": "1.109.0",
     "@vscode/test-cli": "0.0.12",
     "@vscode/test-electron": "2.5.2",
     "esbuild": "0.27.3",
-    "eslint": "9.39.3",
-    "eslint-formatter-unix": "9.0.1",
     "npm-run-all2": "8.0.4",
     "oxfmt": "0.36.0",
-    "typescript": "5.9.3",
-    "typescript-eslint": "8.56.1"
+    "oxlint": "1.51.0",
+    "oxlint-tsgolint": "0.15.0",
+    "typescript": "5.9.3"
   },
   "contributes": {
     "commands": [

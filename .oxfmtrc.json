@@ -6,6 +6,6 @@
   "sortImports": {
     "sortSideEffects": true
   },
-  "ignorePatterns": ["dist", "pnpm-lock.yaml", "pnpm-workspace.yaml"],
+  "ignorePatterns": [".vscode-test", "dist", "out", "pnpm-lock.yaml", "pnpm-workspace.yaml"],
   "semi": false
 }
