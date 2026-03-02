@@ -1,37 +1,23 @@
 {
   "name": "claude-code-line-copy",
   "displayName": "claude-code-line-copy",
-  "description": "Copies Claude Code path of active file and line to clipboard on VSCode.",
   "version": "0.0.1",
-  "engines": {
-    "vscode": "^1.109.0"
-  },
+  "description": "Copies Claude Code path of active file and line to clipboard on VSCode.",
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
   "main": "./dist/extension.js",
-  "contributes": {
-    "commands": [
-      {
-        "command": "claude-code-line-copy.helloWorld",
-        "title": "Hello World"
-      }
-    ]
-  },
   "scripts": {
+    "compile": "node esbuild.js",
+    "lint": "run-s lint:* lint-dry:tsc",
+    "lint-dry:tsc": "tsc --noEmit --pretty false",
+    "lint:eslint": "eslint --cache --cache-location node_modules/.cache/eslint/ --cache-strategy content --max-warnings=0 --format unix --fix .",
+    "lint:format": "oxfmt",
+    "package": "node esbuild.js --production",
+    "test": "vscode-test",
     "vscode:prepublish": "pnpm run package",
-    "compile": "pnpm run check-types && pnpm run lint && node esbuild.js",
     "watch": "run-p watch:*",
-    "watch:esbuild": "node esbuild.js --watch",
-    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
-    "package": "pnpm run check-types && pnpm run lint && node esbuild.js --production",
-    "compile-tests": "tsc -p . --outDir out",
-    "watch-tests": "tsc -p . -w --outDir out",
-    "pretest": "pnpm run compile-tests && pnpm run compile && pnpm run lint",
-    "check-types": "tsc --noEmit",
-    "lint": "eslint src",
-    "test": "vscode-test"
+    "watch:esbuild": "node esbuild.js --watch"
   },
   "devDependencies": {
     "@types/mocha": "10.0.10",
@@ -41,8 +27,23 @@
     "@vscode/test-electron": "2.5.2",
     "esbuild": "0.27.3",
     "eslint": "9.39.3",
+    "eslint-formatter-unix": "9.0.1",
     "npm-run-all2": "8.0.4",
+    "oxfmt": "0.36.0",
     "typescript": "5.9.3",
     "typescript-eslint": "8.56.1"
-  }
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "claude-code-line-copy.helloWorld",
+        "title": "Hello World"
+      }
+    ]
+  },
+  "activationEvents": [],
+  "engines": {
+    "vscode": "^1.109.0"
+  },
+  "packageManager": "pnpm@10.30.3+sha512.c961d1e0a2d8e354ecaa5166b822516668b7f44cb5bd95122d590dd81922f606f5473b6d23ec4a5be05e7fcd18e8488d47d978bbe981872f1145d06e9a740017"
 }
