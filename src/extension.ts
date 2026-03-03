@@ -17,7 +17,7 @@ function formatLineSuffix(selection: vscode.Selection): string {
 
 export function activate(context: vscode.ExtensionContext): void {
   context.subscriptions.push(
-    vscode.commands.registerCommand("claude-code-line-copy.copyRelativePath", async () => {
+    vscode.commands.registerCommand("copy-path-for-claude-code.copyRelativePath", async () => {
       const editor = vscode.window.activeTextEditor
       if (!editor) {
         vscode.window.showInformationMessage("No active editor found.")
@@ -28,7 +28,7 @@ export function activate(context: vscode.ExtensionContext): void {
       await vscode.env.clipboard.writeText(`@${relativePath}${suffix}`)
     }),
 
-    vscode.commands.registerCommand("claude-code-line-copy.copyAbsolutePath", async () => {
+    vscode.commands.registerCommand("copy-path-for-claude-code.copyAbsolutePath", async () => {
       const editor = vscode.window.activeTextEditor
       if (!editor) {
         vscode.window.showInformationMessage("No active editor found.")

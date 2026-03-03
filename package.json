@@ -1,11 +1,12 @@
 {
-  "name": "claude-code-line-copy",
-  "displayName": "claude-code-line-copy",
-  "version": "0.0.1",
-  "description": "Copies Claude Code path of active file and line to clipboard on VSCode.",
+  "name": "copy-path-for-claude-code",
+  "displayName": "Copy Path for Claude Code",
+  "version": "1.0.0",
+  "description": "Copy the active file path in Claude Code @path format to the clipboard, with optional line numbers.",
   "categories": [
     "Other"
   ],
+  "license": "MIT",
   "main": "./dist/extension.js",
   "scripts": {
     "compile": "node esbuild.js",
@@ -41,11 +42,11 @@
   "contributes": {
     "commands": [
       {
-        "command": "claude-code-line-copy.copyRelativePath",
+        "command": "copy-path-for-claude-code.copyRelativePath",
         "title": "Copy Relative Path for Claude Code"
       },
       {
-        "command": "claude-code-line-copy.copyAbsolutePath",
+        "command": "copy-path-for-claude-code.copyAbsolutePath",
         "title": "Copy Absolute Path for Claude Code"
       }
     ]

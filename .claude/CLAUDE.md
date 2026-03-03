@@ -1,4 +1,4 @@
-# VSCode Extension for Claude Code Line Copy
+# VSCode Extension: Copy Path for Claude Code
 
 ## Project Overview
 

@@ -11,7 +11,7 @@ suite("Copy Path Commands", () => {
     const doc = await vscode.workspace.openTextDocument(fileUri)
     await vscode.window.showTextDocument(doc)
 
-    await vscode.commands.executeCommand("claude-code-line-copy.copyRelativePath")
+    await vscode.commands.executeCommand("copy-path-for-claude-code.copyRelativePath")
     const clipboard = await vscode.env.clipboard.readText()
     assert.strictEqual(clipboard, "@package.json")
   })
@@ -24,7 +24,7 @@ suite("Copy Path Commands", () => {
     const doc = await vscode.workspace.openTextDocument(fileUri)
     await vscode.window.showTextDocument(doc)
 
-    await vscode.commands.executeCommand("claude-code-line-copy.copyAbsolutePath")
+    await vscode.commands.executeCommand("copy-path-for-claude-code.copyAbsolutePath")
     const clipboard = await vscode.env.clipboard.readText()
     assert.strictEqual(clipboard, `@${fileUri.fsPath}`)
   })
@@ -38,7 +38,7 @@ suite("Copy Path Commands", () => {
     const editor = await vscode.window.showTextDocument(doc)
 
     editor.selection = new vscode.Selection(2, 0, 2, 5)
-    await vscode.commands.executeCommand("claude-code-line-copy.copyRelativePath")
+    await vscode.commands.executeCommand("copy-path-for-claude-code.copyRelativePath")
     const clipboard = await vscode.env.clipboard.readText()
     assert.strictEqual(clipboard, "@package.json#3")
   })
@@ -52,7 +52,7 @@ suite("Copy Path Commands", () => {
     const editor = await vscode.window.showTextDocument(doc)
 
     editor.selection = new vscode.Selection(1, 0, 3, 5)
-    await vscode.commands.executeCommand("claude-code-line-copy.copyRelativePath")
+    await vscode.commands.executeCommand("copy-path-for-claude-code.copyRelativePath")
     const clipboard = await vscode.env.clipboard.readText()
     assert.strictEqual(clipboard, "@package.json#2-4")
   })
@@ -66,7 +66,7 @@ suite("Copy Path Commands", () => {
     const editor = await vscode.window.showTextDocument(doc)
 
     editor.selection = new vscode.Selection(4, 0, 4, 3)
-    await vscode.commands.executeCommand("claude-code-line-copy.copyAbsolutePath")
+    await vscode.commands.executeCommand("copy-path-for-claude-code.copyAbsolutePath")
     const clipboard = await vscode.env.clipboard.readText()
     assert.strictEqual(clipboard, `@${fileUri.fsPath}#5`)
   })
@@ -80,7 +80,7 @@ suite("Copy Path Commands", () => {
     const editor = await vscode.window.showTextDocument(doc)
 
     editor.selection = new vscode.Selection(0, 0, 2, 5)
-    await vscode.commands.executeCommand("claude-code-line-copy.copyAbsolutePath")
+    await vscode.commands.executeCommand("copy-path-for-claude-code.copyAbsolutePath")
     const clipboard = await vscode.env.clipboard.readText()
     assert.strictEqual(clipboard, `@${fileUri.fsPath}#1-3`)
   })
@@ -95,7 +95,7 @@ suite("Copy Path Commands", () => {
 
     // Select lines 2-3 (0-indexed: 1-2), cursor at column 0 of line 4 (0-indexed: 3)
     editor.selection = new vscode.Selection(1, 0, 3, 0)
-    await vscode.commands.executeCommand("claude-code-line-copy.copyRelativePath")
+    await vscode.commands.executeCommand("copy-path-for-claude-code.copyRelativePath")
     const clipboard = await vscode.env.clipboard.readText()
     assert.strictEqual(clipboard, "@package.json#2-3")
   })
@@ -106,7 +106,7 @@ suite("Copy Path Commands", () => {
     // Write a known value to clipboard before running the command
     await vscode.env.clipboard.writeText("sentinel")
 
-    await vscode.commands.executeCommand("claude-code-line-copy.copyRelativePath")
+    await vscode.commands.executeCommand("copy-path-for-claude-code.copyRelativePath")
     const clipboard = await vscode.env.clipboard.readText()
     assert.strictEqual(clipboard, "sentinel", "clipboard should not be modified")
   })
