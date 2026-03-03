@@ -1,15 +1,42 @@
 import assert from "node:assert"
 
-// You can import and use all API from the 'vscode' module
-// as well as import your extension to test it
 import vscode from "vscode"
-// import * as myExtension from '../../extension';
 
-suite("Extension Test Suite", () => {
-  vscode.window.showInformationMessage("Start all tests.")
+suite("Copy Path Commands", () => {
+  test("copyRelativePath copies @-prefixed relative path to clipboard", async () => {
+    const workspaceUri = vscode.workspace.workspaceFolders?.[0]?.uri
+    assert.ok(workspaceUri, "workspace folder must exist")
 
-  test("Sample test", () => {
-    assert.strictEqual(-1, [1, 2, 3].indexOf(5))
-    assert.strictEqual(-1, [1, 2, 3].indexOf(0))
+    const fileUri = vscode.Uri.joinPath(workspaceUri, "package.json")
+    const doc = await vscode.workspace.openTextDocument(fileUri)
+    await vscode.window.showTextDocument(doc)
+
+    await vscode.commands.executeCommand("claude-code-line-copy.copyRelativePath")
+    const clipboard = await vscode.env.clipboard.readText()
+    assert.strictEqual(clipboard, "@package.json")
+  })
+
+  test("copyAbsolutePath copies @-prefixed absolute path to clipboard", async () => {
+    const workspaceUri = vscode.workspace.workspaceFolders?.[0]?.uri
+    assert.ok(workspaceUri, "workspace folder must exist")
+
+    const fileUri = vscode.Uri.joinPath(workspaceUri, "package.json")
+    const doc = await vscode.workspace.openTextDocument(fileUri)
+    await vscode.window.showTextDocument(doc)
+
+    await vscode.commands.executeCommand("claude-code-line-copy.copyAbsolutePath")
+    const clipboard = await vscode.env.clipboard.readText()
+    assert.strictEqual(clipboard, `@${fileUri.fsPath}`)
+  })
+
+  test("shows info message when no active editor", async () => {
+    await vscode.commands.executeCommand("workbench.action.closeAllEditors")
+
+    // Write a known value to clipboard before running the command
+    await vscode.env.clipboard.writeText("sentinel")
+
+    await vscode.commands.executeCommand("claude-code-line-copy.copyRelativePath")
+    const clipboard = await vscode.env.clipboard.readText()
+    assert.strictEqual(clipboard, "sentinel", "clipboard should not be modified")
   })
 })

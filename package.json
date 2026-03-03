@@ -41,8 +41,12 @@
   "contributes": {
     "commands": [
       {
-        "command": "claude-code-line-copy.helloWorld",
-        "title": "Hello World"
+        "command": "claude-code-line-copy.copyRelativePath",
+        "title": "Copy Relative Path for Claude Code"
+      },
+      {
+        "command": "claude-code-line-copy.copyAbsolutePath",
+        "title": "Copy Absolute Path for Claude Code"
       }
     ]
   },
