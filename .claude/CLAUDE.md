@@ -4,6 +4,16 @@
 
 VSCode extension that copies the active file path (with optional line numbers) in Claude Code's `@path` format to the clipboard.
 
+## Directory Structure
+
+```
+dist/      # Bundled extension output (esbuild)
+openspec/  # Official product specification documents. Built with OpenSpec-style SDD (Specification Driven Development) — look here first for requirements and design decisions
+out/       # Compiled test output (tsc)
+src/       # Extension source code (TypeScript)
+src/test/  # Test files (compiled by tsc to out/, run with @vscode/test-cli)
+```
+
 ## Git Conventions
 
 - **Branch naming:** `{issue-number}/{issue-title}` (e.g. `1234/implement-feature`)
