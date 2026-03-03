@@ -1,0 +1,42 @@
+{
+  "permissions": {
+    "deny": [
+      "NotebookEdit",
+      "mcp__ide__executeCode",
+      "Bash(curl:*)",
+      "Bash(npm:*)",
+      "Bash(npx:*)",
+      "Bash(git push --force:*)",
+      "Bash(git push --force-with-lease:*)",
+      "Bash(git push -f:*)",
+      "Bash(rm -rf .)",
+      "Bash(rm -rf /)",
+      "Read(.env)",
+      "Read(node_modules/**)",
+      "Read(pnpm-lock.yaml)",
+      "Write(.env*)",
+      "Write(node_modules/**)",
+      "Write(pnpm-lock.yaml)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "pnpm lint:format || exit 2"
+          },
+          {
+            "type": "command",
+            "command": "pnpm lint:oxlint || exit 2"
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "typescript-lsp@claude-plugins-official": true
+  }
+}
