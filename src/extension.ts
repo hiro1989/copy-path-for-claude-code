@@ -1,5 +1,20 @@
 import vscode from "vscode"
 
+function formatLineSuffix(selection: vscode.Selection): string {
+  if (selection.isEmpty) {
+    return ""
+  }
+  const startLine = selection.start.line + 1
+  let endLine = selection.end.line + 1
+  if (selection.end.character === 0 && startLine < endLine) {
+    endLine -= 1
+  }
+  if (startLine === endLine) {
+    return `#${startLine}`
+  }
+  return `#${startLine}-${endLine}`
+}
+
 export function activate(context: vscode.ExtensionContext): void {
   context.subscriptions.push(
     vscode.commands.registerCommand("claude-code-line-copy.copyRelativePath", async () => {
@@ -9,7 +24,8 @@ export function activate(context: vscode.ExtensionContext): void {
         return
       }
       const relativePath = vscode.workspace.asRelativePath(editor.document.uri)
-      await vscode.env.clipboard.writeText(`@${relativePath}`)
+      const suffix = formatLineSuffix(editor.selection)
+      await vscode.env.clipboard.writeText(`@${relativePath}${suffix}`)
     }),
 
     vscode.commands.registerCommand("claude-code-line-copy.copyAbsolutePath", async () => {
@@ -18,7 +34,8 @@ export function activate(context: vscode.ExtensionContext): void {
         vscode.window.showInformationMessage("No active editor found.")
         return
       }
-      await vscode.env.clipboard.writeText(`@${editor.document.uri.fsPath}`)
+      const suffix = formatLineSuffix(editor.selection)
+      await vscode.env.clipboard.writeText(`@${editor.document.uri.fsPath}${suffix}`)
     }),
   )
 }
