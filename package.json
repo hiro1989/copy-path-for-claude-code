@@ -7,6 +7,11 @@
     "Other"
   ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hiro1989/copy-path-for-claude-code.git"
+  },
+  "publisher": "arx8",
   "main": "./dist/extension.js",
   "scripts": {
     "compile": "node esbuild.js",
@@ -18,9 +23,12 @@
     "lint:format": "oxfmt",
     "lint:oxlint": "oxlint --format unix . --max-warnings=0 --fix",
     "package": "node esbuild.js --production",
+    "release": "run-s package vsce:publish",
     "test": "run-s compile test:compile test:run",
     "test:compile": "tsc",
     "test:run": "vscode-test",
+    "vsce:login": "vsce login arx8",
+    "vsce:publish": "vsce publish",
     "vscode:prepublish": "pnpm run package",
     "watch": "run-p watch:*",
     "watch:esbuild": "node esbuild.js --watch"
@@ -32,6 +40,7 @@
     "@types/vscode": "1.109.0",
     "@vscode/test-cli": "0.0.12",
     "@vscode/test-electron": "2.5.2",
+    "@vscode/vsce": "3.7.1",
     "esbuild": "0.27.3",
     "npm-run-all2": "8.0.4",
     "oxfmt": "0.36.0",

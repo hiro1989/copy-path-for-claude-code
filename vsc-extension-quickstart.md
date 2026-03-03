@@ -39,6 +39,14 @@
   - The provided test runner will only consider files matching the name pattern `**.test.ts`.
   - You can create folders inside the `test` folder to structure your tests any way you want.
 
+## Azure DevOps
+
+- PAT (Personal Access Token) management: https://dev.azure.com/arx8/_usersSettings/tokens
+
+## Manage Publishers & Extensions
+
+- https://marketplace.visualstudio.com/manage/publishers/arx8
+
 ## Go further
 
 - Reduce the extension size and improve the startup time by [bundling your extension](https://code.visualstudio.com/api/working-with-extensions/bundling-extension).
