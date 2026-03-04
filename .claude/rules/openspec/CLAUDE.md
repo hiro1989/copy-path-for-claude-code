@@ -51,7 +51,6 @@ When creating or editing an artifact, read its template file first and follow it
 ### 4. `changes/{change-name}/tasks.md`
 
 - Checklist of all tasks needed to complete the change: implementation, tests, migrations, etc.
-- Each checklist task MUST correspond to exactly one git commit (1 task = 1 commit).
 
 ### 5. `changes/archive/YYYY-MM-DD-{change-name}/`
 

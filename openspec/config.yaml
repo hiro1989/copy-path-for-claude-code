@@ -18,3 +18,7 @@ schema: spec-driven
 #       - Always include a "Non-goals" section
 #     tasks:
 #       - Break tasks into chunks of max 2 hours
+rules:
+  tasks:
+    - Always include a task for writing test code
+    - Each checklist task MUST correspond to exactly one git commit (1 task = 1 commit).
