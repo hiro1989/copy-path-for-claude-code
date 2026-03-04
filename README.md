@@ -38,6 +38,12 @@ If you're in the same boat, this extension has your back until the official comm
 - **Line number support** — When text is selected, appends line numbers automatically
   - Single line: `@path#5`
   - Range: `@path#5-10`
+- **Multi-cursor support** — With multiple cursors, copies all positions as a markdown list
+  ```
+  - @path#3
+  - @path#10
+  - @path#25
+  ```
 
 ## Usage
 
