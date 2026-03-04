@@ -25,7 +25,13 @@ export function activate(context: vscode.ExtensionContext): void {
       }
       const relativePath = vscode.workspace.asRelativePath(editor.document.uri)
       const suffix = formatLineSuffix(editor.selection)
-      await vscode.env.clipboard.writeText(`@${relativePath}${suffix}`)
+      const text = `@${relativePath}${suffix}`
+      try {
+        await vscode.env.clipboard.writeText(text)
+        vscode.window.setStatusBarMessage(`Copied: ${text}`, 3000)
+      } catch {
+        vscode.window.showErrorMessage("Failed to copy.")
+      }
     }),
 
     vscode.commands.registerCommand("copy-path-for-claude-code.copyAbsolutePath", async () => {
@@ -35,7 +41,13 @@ export function activate(context: vscode.ExtensionContext): void {
         return
       }
       const suffix = formatLineSuffix(editor.selection)
-      await vscode.env.clipboard.writeText(`@${editor.document.uri.fsPath}${suffix}`)
+      const text = `@${editor.document.uri.fsPath}${suffix}`
+      try {
+        await vscode.env.clipboard.writeText(text)
+        vscode.window.setStatusBarMessage(`Copied: ${text}`, 3000)
+      } catch {
+        vscode.window.showErrorMessage("Failed to copy.")
+      }
     }),
   )
 }

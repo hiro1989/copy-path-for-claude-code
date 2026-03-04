@@ -100,6 +100,25 @@ suite("Copy Path Commands", () => {
     assert.strictEqual(clipboard, "@package.json#2-3")
   })
 
+  test("successful copy updates clipboard without throwing", async () => {
+    const workspaceUri = vscode.workspace.workspaceFolders?.[0]?.uri
+    assert.ok(workspaceUri, "workspace folder must exist")
+
+    const fileUri = vscode.Uri.joinPath(workspaceUri, "package.json")
+    const doc = await vscode.workspace.openTextDocument(fileUri)
+    await vscode.window.showTextDocument(doc)
+
+    // Reset selection and clipboard
+    const editor = await vscode.window.showTextDocument(doc)
+    editor.selection = new vscode.Selection(0, 0, 0, 0)
+    await vscode.env.clipboard.writeText("")
+
+    // Command should complete without throwing (try-catch wraps clipboard write)
+    await vscode.commands.executeCommand("copy-path-for-claude-code.copyRelativePath")
+    const clipboard = await vscode.env.clipboard.readText()
+    assert.strictEqual(clipboard, "@package.json")
+  })
+
   test("shows info message when no active editor", async () => {
     await vscode.commands.executeCommand("workbench.action.closeAllEditors")
 
