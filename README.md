@@ -1,6 +1,31 @@
-# Copy Path for Claude Code
+<p align="center">
+  <img src="images/icon.png" alt="Copy Path for Claude Code" width="200">
+</p>
 
-VS Code extension that copies the active file path in Claude Code's `@path` format to the clipboard.
+<h1 align="center">Copy Path for Claude Code</h1>
+
+<p align="center">
+  VS Code extension that copies the active file path in Claude Code's <code>@path</code> format to the clipboard.
+</p>
+
+## Demo
+
+<p align="center">
+  <img src="images/demo.gif" alt="Demo" width="600">
+</p>
+
+## Why?
+
+[Claude Code for VS Code](https://marketplace.visualstudio.com/items?itemName=anthropic.claude-code) has a built-in command `Claude Code: Insert @-Mention Reference` — which would make this extension completely unnecessary. Unfortunately, it still doesn't work in some environments
+
+The issues below are closed, but the command still doesn't work in my environment for months. e.g.
+
+- [[BUG] VSCode Extension: "Insert @-Mention Reference" and "Insert At-Mentioned" keyboard shortcuts not working on Windows (v2.1.7) · Issue #18083 · anthropics/claude-code](https://github.com/anthropics/claude-code/issues/18083)
+- [[BUG] Insert At-Mentioned doesn't work anymore in VSCode Version: 1.108.0 · Issue #18126 · anthropics/claude-code](https://github.com/anthropics/claude-code/issues/18126)
+
+So here we are. 🫠
+
+If you're in the same boat, this extension has your back until the official command is fixed. 🫰
 
 ## Features
 
