@@ -1,4 +1,8 @@
+.claude/**
 .gitignore
+.gitignore_global
+.npmrc
+.tool-versions
 .vscode-test/**
 .vscode/**
 **/.oxfmtrc.json
@@ -7,8 +11,13 @@
 **/*.map
 **/*.ts
 **/tsconfig.json
+cspell.json
 esbuild.js
+images/**
 node_modules/**
+openspec/**
 out/**
+pnpm-lock.yaml
+pnpm-workspace.yaml
 src/**
 vsc-extension-quickstart.md

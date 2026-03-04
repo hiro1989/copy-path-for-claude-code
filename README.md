@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="images/icon.png" alt="Copy Path for Claude Code" width="200">
+  <img src="assets/icon.png" alt="Copy Path for Claude Code" width="200">
 </p>
 
 <h1 align="center">Copy Path for Claude Code</h1>
@@ -15,7 +15,7 @@
 ## Demo
 
 <p align="center">
-  <img src="images/demo.gif" alt="Demo" width="600">
+  <img src="https://raw.githubusercontent.com/hiro1989/copy-path-for-claude-code/main/images/demo.gif" alt="Demo" width="600">
 </p>
 
 ## Why?
