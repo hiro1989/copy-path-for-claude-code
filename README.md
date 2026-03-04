@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/icon.png" alt="Copy Path for Claude Code" width="200">
+  <img src="https://raw.githubusercontent.com/hiro1989/copy-path-for-claude-code/main/assets/icon.png" alt="Copy Path for Claude Code" width="200">
 </p>
 
 <h1 align="center">Copy Path for Claude Code</h1>
@@ -24,8 +24,8 @@
 
 The issues below are closed, but the command still doesn't work in my environment for months. e.g.
 
-- [\[BUG\] VSCode Extension: "Insert @-Mention Reference" and "Insert At-Mentioned" keyboard shortcuts not working on Windows (v2.1.7) · Issue #18083 · anthropics/claude-code](https://github.com/anthropics/claude-code/issues/18083)
-- [\[BUG\] Insert At-Mentioned doesn't work anymore in VSCode Version: 1.108.0 · Issue #18126 · anthropics/claude-code](https://github.com/anthropics/claude-code/issues/18126)
+- [BUG: VSCode Extension: "Insert @-Mention Reference" and "Insert At-Mentioned" keyboard shortcuts not working on Windows (v2.1.7) · Issue #18083 · anthropics/claude-code](https://github.com/anthropics/claude-code/issues/18083)
+- [BUG: Insert At-Mentioned doesn't work anymore in VSCode Version: 1.108.0 · Issue #18126 · anthropics/claude-code](https://github.com/anthropics/claude-code/issues/18126)
 
 So here we are. 🫠
 
