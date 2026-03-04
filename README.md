@@ -8,6 +8,10 @@
   VS Code extension that copies the active file path in Claude Code's <code>@path</code> format to the clipboard.
 </p>
 
+<p align="center">
+  <a href="https://marketplace.visualstudio.com/items?itemName=arx8.copy-path-for-claude-code">Install from VS Code Marketplace</a>
+</p>
+
 ## Demo
 
 <p align="center">
@@ -45,6 +49,32 @@ If you're in the same boat, this extension has your back until the official comm
 4. Paste the result into Claude Code
 
 Optionally, select text before copying to include line numbers.
+
+## Keyboard Shortcuts
+
+This extension does not register default keybindings. To set your own:
+
+1. Open the Command Palette (`Cmd+Shift+P` or `Ctrl+Shift+P`)
+2. Run `Preferences: Open Keyboard Shortcuts`
+3. Search for `Copy Path for Claude Code`
+4. Click the pencil icon next to the command and assign your preferred shortcut
+
+| Command                            | Command ID                                   |
+| ---------------------------------- | -------------------------------------------- |
+| Copy Relative Path for Claude Code | `copy-path-for-claude-code.copyRelativePath` |
+| Copy Absolute Path for Claude Code | `copy-path-for-claude-code.copyAbsolutePath` |
+
+You can also edit `keybindings.json` directly. For example:
+
+```json
+[
+  {
+    "key": "ctrl+shift+c",
+    "command": "copy-path-for-claude-code.copyRelativePath",
+    "when": "editorTextFocus"
+  }
+]
+```
 
 ## Requirements
 
