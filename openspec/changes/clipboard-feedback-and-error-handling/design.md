@@ -20,9 +20,10 @@ Both command handlers in `extension.ts` call `clipboard.writeText()` without try
 
 - Lightweight, auto-dismissing (3 seconds)
 - Less intrusive than `showInformationMessage` which creates a persistent notification
-- Message format: `Copied: @<path><suffix>`
+- Message: `Copied: @<path><suffix>`
 
 ### Decision 2: Use `vscode.window.showErrorMessage` for failure
 
 - Appropriate severity level for an unexpected error
 - Persists until dismissed so the user can read it
+- Message: `Failed to copy.`
