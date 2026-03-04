@@ -119,6 +119,55 @@ suite("Copy Path Commands", () => {
     assert.strictEqual(clipboard, "@package.json")
   })
 
+  test("multi-cursor with no selection copies bullet list with line numbers", async () => {
+    const workspaceUri = vscode.workspace.workspaceFolders?.[0]?.uri
+    assert.ok(workspaceUri, "workspace folder must exist")
+
+    const fileUri = vscode.Uri.joinPath(workspaceUri, "package.json")
+    const doc = await vscode.workspace.openTextDocument(fileUri)
+    const editor = await vscode.window.showTextDocument(doc)
+
+    editor.selections = [
+      new vscode.Selection(0, 0, 0, 0),
+      new vscode.Selection(2, 0, 2, 0),
+      new vscode.Selection(4, 0, 4, 0),
+    ]
+
+    await vscode.commands.executeCommand("copy-path-for-claude-code.copyRelativePath")
+    const clipboard = await vscode.env.clipboard.readText()
+    assert.strictEqual(clipboard, "- @package.json#1\n- @package.json#3\n- @package.json#5")
+  })
+
+  test("multi-cursor with range selections copies bullet list with line ranges", async () => {
+    const workspaceUri = vscode.workspace.workspaceFolders?.[0]?.uri
+    assert.ok(workspaceUri, "workspace folder must exist")
+
+    const fileUri = vscode.Uri.joinPath(workspaceUri, "package.json")
+    const doc = await vscode.workspace.openTextDocument(fileUri)
+    const editor = await vscode.window.showTextDocument(doc)
+
+    editor.selections = [new vscode.Selection(0, 0, 1, 5), new vscode.Selection(3, 0, 5, 3)]
+
+    await vscode.commands.executeCommand("copy-path-for-claude-code.copyRelativePath")
+    const clipboard = await vscode.env.clipboard.readText()
+    assert.strictEqual(clipboard, "- @package.json#1-2\n- @package.json#4-6")
+  })
+
+  test("multi-cursor with mixed selections copies correct bullet list", async () => {
+    const workspaceUri = vscode.workspace.workspaceFolders?.[0]?.uri
+    assert.ok(workspaceUri, "workspace folder must exist")
+
+    const fileUri = vscode.Uri.joinPath(workspaceUri, "package.json")
+    const doc = await vscode.workspace.openTextDocument(fileUri)
+    const editor = await vscode.window.showTextDocument(doc)
+
+    editor.selections = [new vscode.Selection(0, 0, 2, 5), new vscode.Selection(4, 0, 4, 0)]
+
+    await vscode.commands.executeCommand("copy-path-for-claude-code.copyRelativePath")
+    const clipboard = await vscode.env.clipboard.readText()
+    assert.strictEqual(clipboard, "- @package.json#1-3\n- @package.json#5")
+  })
+
   test("shows info message when no active editor", async () => {
     await vscode.commands.executeCommand("workbench.action.closeAllEditors")
 
