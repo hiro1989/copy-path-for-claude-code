@@ -179,3 +179,95 @@ suite("Copy Path Commands", () => {
     assert.strictEqual(clipboard, "sentinel", "clipboard should not be modified")
   })
 })
+
+suite("Explorer Path Copy", () => {
+  test("explorer single file copies relative path with trailing space", async () => {
+    const workspaceUri = vscode.workspace.workspaceFolders?.[0]?.uri
+    assert.ok(workspaceUri, "workspace folder must exist")
+
+    const fileUri = vscode.Uri.joinPath(workspaceUri, "package.json")
+    await vscode.commands.executeCommand("copy-path-for-claude-code.copyRelativePath", fileUri, [
+      fileUri,
+    ])
+    const clipboard = await vscode.env.clipboard.readText()
+    assert.strictEqual(clipboard, "@package.json ")
+  })
+
+  test("explorer single file copies absolute path with trailing space", async () => {
+    const workspaceUri = vscode.workspace.workspaceFolders?.[0]?.uri
+    assert.ok(workspaceUri, "workspace folder must exist")
+
+    const fileUri = vscode.Uri.joinPath(workspaceUri, "package.json")
+    await vscode.commands.executeCommand("copy-path-for-claude-code.copyAbsolutePath", fileUri, [
+      fileUri,
+    ])
+    const clipboard = await vscode.env.clipboard.readText()
+    assert.strictEqual(clipboard, `@${fileUri.fsPath} `)
+  })
+
+  test("explorer directory copies relative path with trailing slash", async () => {
+    const workspaceUri = vscode.workspace.workspaceFolders?.[0]?.uri
+    assert.ok(workspaceUri, "workspace folder must exist")
+
+    const dirUri = vscode.Uri.joinPath(workspaceUri, "src")
+    await vscode.commands.executeCommand("copy-path-for-claude-code.copyRelativePath", dirUri, [
+      dirUri,
+    ])
+    const clipboard = await vscode.env.clipboard.readText()
+    assert.strictEqual(clipboard, "@src/ ")
+  })
+
+  test("explorer directory copies absolute path with trailing slash", async () => {
+    const workspaceUri = vscode.workspace.workspaceFolders?.[0]?.uri
+    assert.ok(workspaceUri, "workspace folder must exist")
+
+    const dirUri = vscode.Uri.joinPath(workspaceUri, "src")
+    await vscode.commands.executeCommand("copy-path-for-claude-code.copyAbsolutePath", dirUri, [
+      dirUri,
+    ])
+    const clipboard = await vscode.env.clipboard.readText()
+    assert.strictEqual(clipboard, `@${dirUri.fsPath}/ `)
+  })
+
+  test("explorer multi-selection copies bullet list", async () => {
+    const workspaceUri = vscode.workspace.workspaceFolders?.[0]?.uri
+    assert.ok(workspaceUri, "workspace folder must exist")
+
+    const fileUri = vscode.Uri.joinPath(workspaceUri, "package.json")
+    const dirUri = vscode.Uri.joinPath(workspaceUri, "src")
+    await vscode.commands.executeCommand("copy-path-for-claude-code.copyRelativePath", fileUri, [
+      fileUri,
+      dirUri,
+    ])
+    const clipboard = await vscode.env.clipboard.readText()
+    assert.strictEqual(clipboard, "- @package.json\n- @src/\n")
+  })
+
+  test("explorer multi-selection absolute paths copies bullet list", async () => {
+    const workspaceUri = vscode.workspace.workspaceFolders?.[0]?.uri
+    assert.ok(workspaceUri, "workspace folder must exist")
+
+    const fileUri = vscode.Uri.joinPath(workspaceUri, "package.json")
+    const dirUri = vscode.Uri.joinPath(workspaceUri, "src")
+    await vscode.commands.executeCommand("copy-path-for-claude-code.copyAbsolutePath", fileUri, [
+      fileUri,
+      dirUri,
+    ])
+    const clipboard = await vscode.env.clipboard.readText()
+    assert.strictEqual(clipboard, `- @${fileUri.fsPath}\n- @${dirUri.fsPath}/\n`)
+  })
+
+  test("falls back to active editor when no Uri provided", async () => {
+    const workspaceUri = vscode.workspace.workspaceFolders?.[0]?.uri
+    assert.ok(workspaceUri, "workspace folder must exist")
+
+    const fileUri = vscode.Uri.joinPath(workspaceUri, "package.json")
+    const doc = await vscode.workspace.openTextDocument(fileUri)
+    const editor = await vscode.window.showTextDocument(doc)
+    editor.selection = new vscode.Selection(0, 0, 0, 0)
+
+    await vscode.commands.executeCommand("copy-path-for-claude-code.copyRelativePath")
+    const clipboard = await vscode.env.clipboard.readText()
+    assert.strictEqual(clipboard, "@package.json ")
+  })
+})
