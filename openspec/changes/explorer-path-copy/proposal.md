@@ -4,7 +4,7 @@ The extension currently only copies paths from the active text editor. Users oft
 
 ## What Changes
 
-- Extend existing `copyRelativePath` and `copyAbsolutePath` commands to accept `Uri` arguments from the file explorer
+- No new commands are introduced. The existing `copyRelativePath` and `copyAbsolutePath` commands are extended to also work from the file explorer. Users do not need to learn or choose different commands depending on context.
 - When invoked from the explorer context menu, copy the path without line numbers
 - Support multiple file or directory selection in the explorer (bullet list format)
 - Append trailing slash to directory paths
