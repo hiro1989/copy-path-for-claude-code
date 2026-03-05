@@ -19,6 +19,13 @@ schema: spec-driven
 #     tasks:
 #       - Break tasks into chunks of max 2 hours
 rules:
+  proposal:
+    - After creating or updating the proposal, commit it before proceeding to the next artifact.
+  design:
+    - After creating or updating the design, commit it before proceeding to the next artifact.
+  specs:
+    - After creating or updating the specs, commit them before proceeding to the next artifact.
   tasks:
+    - After creating or updating the tasks, commit them before proceeding to the next artifact.
     - Always include a task for writing test code
-    - Each checklist task MUST correspond to exactly one git commit (1 task = 1 commit).
+    - Add a final task titled "Update the related section in README.md".
