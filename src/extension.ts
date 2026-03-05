@@ -27,23 +27,54 @@ function formatLineSuffix(selection: vscode.Selection): string {
   return `#${startLine}-${endLine}`
 }
 
-async function copyPath(getPath: (editor: vscode.TextEditor) => string): Promise<void> {
-  const editor = vscode.window.activeTextEditor
-  if (!editor) {
-    vscode.window.showInformationMessage("No active editor found.")
-    return
-  }
-  const path = getPath(editor)
+async function formatExplorerPath(
+  uri: vscode.Uri,
+  getPath: (uri: vscode.Uri) => string,
+): Promise<string> {
+  const stat = await vscode.workspace.fs.stat(uri)
+  const path = getPath(uri)
+  const trailingSlash = stat.type & vscode.FileType.Directory ? "/" : ""
+  return `@${path}${trailingSlash}`
+}
+
+async function copyPath(
+  getPath: (uri: vscode.Uri) => string,
+  uri?: vscode.Uri,
+  allUris?: vscode.Uri[],
+): Promise<void> {
   let text: string
   let message: string
-  if (1 < editor.selections.length) {
-    text = editor.selections.map((s) => `- @${path}${formatLineNumber(s)}`).join("\n") + "\n"
-    message = `Copied ${editor.selections.length} lines`
+
+  if (uri) {
+    // Explorer context menu invocation
+    const uris = allUris && 1 < allUris.length ? allUris : [uri]
+    if (1 < uris.length) {
+      const paths = await Promise.all(uris.map((u) => formatExplorerPath(u, getPath)))
+      text = `${paths.map((p) => `- ${p}`).join("\n")}\n`
+      message = `Copied ${uris.length} paths`
+    } else {
+      const formatted = await formatExplorerPath(uri, getPath)
+      text = `${formatted} `
+      message = `Copied: ${formatted}`
+    }
   } else {
-    const suffix = formatLineSuffix(editor.selection)
-    text = `@${path}${suffix} `
-    message = `Copied: ${text.trimEnd()}`
+    // Editor invocation (fallback)
+    const editor = vscode.window.activeTextEditor
+    if (!editor) {
+      vscode.window.showInformationMessage("No active editor found.")
+      return
+    }
+    const path = getPath(editor.document.uri)
+    if (1 < editor.selections.length) {
+      text = `${editor.selections.map((s) => `- @${path}${formatLineNumber(s)}`).join("\n")}\n`
+      message = `Copied ${editor.selections.length} lines`
+    } else {
+      const suffix = formatLineSuffix(editor.selection)
+      text = `@${path}${suffix} `
+      message = `Copied: ${text.trimEnd()}`
+    }
   }
+
   try {
     await vscode.env.clipboard.writeText(text)
     vscode.window.setStatusBarMessage(message, 3000)
@@ -54,11 +85,14 @@ async function copyPath(getPath: (editor: vscode.TextEditor) => string): Promise
 
 export function activate(context: vscode.ExtensionContext): void {
   context.subscriptions.push(
-    vscode.commands.registerCommand("copy-path-for-claude-code.copyRelativePath", () =>
-      copyPath((editor) => vscode.workspace.asRelativePath(editor.document.uri)),
+    vscode.commands.registerCommand(
+      "copy-path-for-claude-code.copyRelativePath",
+      (uri?: vscode.Uri, allUris?: vscode.Uri[]) =>
+        copyPath((u) => vscode.workspace.asRelativePath(u), uri, allUris),
     ),
-    vscode.commands.registerCommand("copy-path-for-claude-code.copyAbsolutePath", () =>
-      copyPath((editor) => editor.document.uri.fsPath),
+    vscode.commands.registerCommand(
+      "copy-path-for-claude-code.copyAbsolutePath",
+      (uri?: vscode.Uri, allUris?: vscode.Uri[]) => copyPath((u) => u.fsPath, uri, allUris),
     ),
   )
 }
