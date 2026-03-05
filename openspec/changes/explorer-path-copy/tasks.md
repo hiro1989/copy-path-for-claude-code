@@ -1,8 +1,8 @@
 ## 1. Command Handler Extension
 
-- [ ] 1.1 Refactor command handlers to accept `(uri?: vscode.Uri, allUris?: vscode.Uri[])` arguments and branch between explorer and editor paths
-- [ ] 1.2 Implement directory detection using `vscode.workspace.fs.stat` and append trailing slash for directories
-- [ ] 1.3 Implement multi-selection support using `allUris` with bullet list format
+- [x] 1.1 Refactor command handlers to accept `(uri?: vscode.Uri, allUris?: vscode.Uri[])` arguments and branch between explorer and editor paths
+- [x] 1.2 Implement directory detection using `vscode.workspace.fs.stat` and append trailing slash for directories
+- [x] 1.3 Implement multi-selection support using `allUris` with bullet list format
 
 ## 2. Menu Registration
 
