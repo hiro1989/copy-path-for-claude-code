@@ -6,15 +6,15 @@
 
 ## 2. Menu Registration
 
-- [ ] 2.1 Add `menus.explorer/context` entries for both commands in `package.json`
+- [x] 2.1 Add `menus.explorer/context` entries for both commands in `package.json`
 
 ## 3. Tests
 
-- [ ] 3.1 Add tests for explorer single file copy (relative and absolute)
-- [ ] 3.2 Add tests for explorer directory copy with trailing slash
-- [ ] 3.3 Add tests for explorer multi-selection copy
-- [ ] 3.4 Add tests for fallback to active editor when no Uri provided
+- [x] 3.1 Add tests for explorer single file copy (relative and absolute)
+- [x] 3.2 Add tests for explorer directory copy with trailing slash
+- [x] 3.3 Add tests for explorer multi-selection copy
+- [x] 3.4 Add tests for fallback to active editor when no Uri provided
 
 ## 4. Documentation
 
-- [ ] 4.1 Update the related section in README.md
+- [x] 4.1 Update the related section in README.md

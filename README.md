@@ -44,10 +44,19 @@ If you're in the same boat, this extension has your back until the official comm
   - @path#10
   - @path#25
   ```
+- **Explorer context menu** — Right-click files or directories in the file explorer to copy paths
+  - Directories get a trailing slash: `@src/components/ `
+  - Multi-selection copies a bullet list:
+    ```
+    - @src/foo.ts
+    - @src/bar/
+    ```
 
 A trailing space (or newline for multi-line) is included, so you can start typing right after pasting. 📑
 
 ## Usage
+
+### From the editor
 
 1. Open a file in the editor
 2. Open the Command Palette (`Cmd+Shift+P` or `Ctrl+Shift+P`)
@@ -57,6 +66,12 @@ A trailing space (or newline for multi-line) is included, so you can start typin
 4. Paste the result into Claude Code
 
 Optionally, select text before copying to include line numbers.
+
+### From the file explorer
+
+1. Right-click a file or directory (or select multiple items) in the file explorer
+2. Select `Copy Relative Path for Claude Code` or `Copy Absolute Path for Claude Code`
+3. Paste the result into Claude Code
 
 ## Keyboard Shortcuts
 
