@@ -37,12 +37,12 @@ async function copyPath(getPath: (editor: vscode.TextEditor) => string): Promise
   let text: string
   let message: string
   if (1 < editor.selections.length) {
-    text = editor.selections.map((s) => `- @${path}${formatLineNumber(s)}`).join("\n")
+    text = editor.selections.map((s) => `- @${path}${formatLineNumber(s)}`).join("\n") + "\n"
     message = `Copied ${editor.selections.length} lines`
   } else {
     const suffix = formatLineSuffix(editor.selection)
-    text = `@${path}${suffix}`
-    message = `Copied: ${text}`
+    text = `@${path}${suffix} `
+    message = `Copied: ${text.trimEnd()}`
   }
   try {
     await vscode.env.clipboard.writeText(text)
