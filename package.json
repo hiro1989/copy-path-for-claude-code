@@ -58,7 +58,19 @@
         "command": "copy-path-for-claude-code.copyAbsolutePath",
         "title": "Copy Absolute Path for Claude Code"
       }
-    ]
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "copy-path-for-claude-code.copyRelativePath",
+          "group": "6_copypath"
+        },
+        {
+          "command": "copy-path-for-claude-code.copyAbsolutePath",
+          "group": "6_copypath"
+        }
+      ]
+    }
   },
   "activationEvents": [],
   "icon": "assets/icon.png",
