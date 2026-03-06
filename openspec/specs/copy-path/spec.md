@@ -4,7 +4,7 @@
 
 ### Requirement: Copy relative path in Claude Code format
 
-The system SHALL provide a command that copies the active file's workspace-relative path, prefixed with `@`, to the system clipboard. When the user has an active text selection, the path SHALL include a line number suffix. When the user has multiple cursors, the system SHALL copy all cursor positions as a markdown bullet list with each line prefixed by `- `. For single-line output, the clipboard text SHALL have a trailing space appended. For multi-line output (multiple cursors), the clipboard text SHALL have a trailing newline appended.
+The system SHALL provide a command that copies file paths in Claude Code's `@path` format to the system clipboard. When invoked from the file explorer with a `Uri` argument, the command SHALL use the provided URI. When no `Uri` argument is provided, the command SHALL fall back to the active text editor. When using the active editor, text selection and multi-cursor behavior SHALL remain unchanged. When the user has an active text selection, the path SHALL include a line number suffix. When the user has multiple cursors, the system SHALL copy all cursor positions as a markdown bullet list with each line prefixed by `- `. For single-line output, the clipboard text SHALL have a trailing space appended. For multi-line output (multiple cursors), the clipboard text SHALL have a trailing newline appended.
 
 #### Scenario: Copy relative path with no selection
 
@@ -49,14 +49,14 @@ The system SHALL provide a command that copies the active file's workspace-relat
 
   (with trailing newline)
 
-#### Scenario: Copy relative path without active editor
+#### Scenario: Copy relative path without active editor and without Uri argument
 
-- **WHEN** user executes "Copy Relative Path for Claude Code" with no file open
+- **WHEN** user executes "Copy Relative Path for Claude Code" with no file open and no Uri argument
 - **THEN** the system SHALL show an informational message and SHALL NOT modify the clipboard
 
 ### Requirement: Copy absolute path in Claude Code format
 
-The system SHALL provide a command that copies the active file's absolute filesystem path, prefixed with `@`, to the system clipboard. When the user has an active text selection, the path SHALL include a line number suffix. When the user has multiple cursors, the system SHALL copy all cursor positions as a markdown bullet list with each line prefixed by `- `. For single-line output, the clipboard text SHALL have a trailing space appended. For multi-line output (multiple cursors), the clipboard text SHALL have a trailing newline appended.
+The system SHALL provide a command that copies file paths as absolute filesystem paths in Claude Code's `@path` format to the system clipboard. When invoked from the file explorer with a `Uri` argument, the command SHALL use the provided URI. When no `Uri` argument is provided, the command SHALL fall back to the active text editor. When using the active editor, text selection and multi-cursor behavior SHALL remain unchanged. When the user has an active text selection, the path SHALL include a line number suffix. When the user has multiple cursors, the system SHALL copy all cursor positions as a markdown bullet list with each line prefixed by `- `. For single-line output, the clipboard text SHALL have a trailing space appended. For multi-line output (multiple cursors), the clipboard text SHALL have a trailing newline appended.
 
 #### Scenario: Copy absolute path with no selection
 
@@ -87,9 +87,9 @@ The system SHALL provide a command that copies the active file's absolute filesy
 
   (with trailing newline)
 
-#### Scenario: Copy absolute path without active editor
+#### Scenario: Copy absolute path without active editor and without Uri argument
 
-- **WHEN** user executes "Copy Absolute Path for Claude Code" with no file open
+- **WHEN** user executes "Copy Absolute Path for Claude Code" with no file open and no Uri argument
 - **THEN** the system SHALL show an informational message and SHALL NOT modify the clipboard
 
 ### Requirement: Multi-cursor status bar feedback
