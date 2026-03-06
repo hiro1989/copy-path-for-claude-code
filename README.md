@@ -75,6 +75,8 @@ Optionally, select text before copying to include line numbers.
 
 ## Keyboard Shortcuts
 
+> **Note:** Keyboard shortcuts only work when an editor has focus (VS Code API limitation). When the Explorer is focused, use the right-click context menu instead.
+
 This extension does not register default keybindings. To set your own:
 
 1. Open the Command Palette (`Cmd+Shift+P` or `Ctrl+Shift+P`)

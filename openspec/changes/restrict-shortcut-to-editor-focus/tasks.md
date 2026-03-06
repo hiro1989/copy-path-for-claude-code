@@ -8,4 +8,4 @@
 
 ## 3. Documentation
 
-- [ ] 3.1 Update the related section in README.md
+- [x] 3.1 Update the related section in README.md
