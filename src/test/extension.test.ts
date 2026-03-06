@@ -180,6 +180,33 @@ suite("Copy Path Commands", () => {
   })
 })
 
+suite("Keybinding When Clause", () => {
+  // Read the extension's package.json to verify keybinding contributions
+  let keybindings: { command: string; when?: string }[]
+
+  suiteSetup(async () => {
+    const ext = vscode.extensions.getExtension("arx8.copy-path-for-claude-code")
+    assert.ok(ext, "extension must be found")
+    keybindings = ext.packageJSON.contributes.keybindings ?? []
+  })
+
+  test("copyRelativePath keybinding has editorFocus when clause", () => {
+    const binding = keybindings.find(
+      (kb) => kb.command === "copy-path-for-claude-code.copyRelativePath",
+    )
+    assert.ok(binding, "keybinding for copyRelativePath must exist")
+    assert.strictEqual(binding.when, "editorFocus")
+  })
+
+  test("copyAbsolutePath keybinding has editorFocus when clause", () => {
+    const binding = keybindings.find(
+      (kb) => kb.command === "copy-path-for-claude-code.copyAbsolutePath",
+    )
+    assert.ok(binding, "keybinding for copyAbsolutePath must exist")
+    assert.strictEqual(binding.when, "editorFocus")
+  })
+})
+
 suite("Explorer Path Copy", () => {
   test("explorer single file copies relative path with trailing space", async () => {
     const workspaceUri = vscode.workspace.workspaceFolders?.[0]?.uri
