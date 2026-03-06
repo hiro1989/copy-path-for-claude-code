@@ -1,6 +1,6 @@
 ## 1. Implementation
 
-- [ ] 1.1 Add `"when": "editorFocus"` to both keybinding entries in `package.json`
+- [x] 1.1 Add `"when": "editorFocus"` to both keybinding entries in `package.json`
 
 ## 2. Tests
 

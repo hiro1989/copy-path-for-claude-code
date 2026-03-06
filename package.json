@@ -70,7 +70,17 @@
           "group": "6_copypath"
         }
       ]
-    }
+    },
+    "keybindings": [
+      {
+        "command": "copy-path-for-claude-code.copyRelativePath",
+        "when": "editorFocus"
+      },
+      {
+        "command": "copy-path-for-claude-code.copyAbsolutePath",
+        "when": "editorFocus"
+      }
+    ]
   },
   "activationEvents": [],
   "icon": "assets/icon.png",
