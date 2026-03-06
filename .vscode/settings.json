@@ -20,10 +20,11 @@
     "**/pnpm-lock.yaml": true,
     "**/pnpm-workspace.yaml": true,
     "dist/**": true,
-    "out/**": true
+    "out/**": true,
+    "src/**": true
   },
   // Turn off tsc task auto detection since we have the necessary tasks as npm scripts
-  "typescript.tsc.autoDetect": "off",
+  "js/ts.tsc.autoDetect": "off",
   "editor.formatOnSave": true,
   /** oxc.oxc-vscode */
   "oxc.enable": true,
