@@ -63,3 +63,8 @@ When creating or editing an artifact, read its template file first and follow it
 - Authoritative requirements for a capability — single source of truth
 - SHALL/MUST statements with named WHEN/THEN/AND scenarios
 - Created/updated by `/opsx:sync` when delta specs are merged
+
+## Project-Specific Rules
+
+- After completing an archive operation (moving a change to `openspec/changes/archive/`), create a git commit that includes all archive-related file changes.
+  - Commit message format: `docs: archive <change-name>`
