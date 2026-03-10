@@ -1,0 +1,16 @@
+pre-commit:
+  piped: true
+  jobs:
+    - name: format
+      glob: "*.{ts,js,json,yaml,yml,md,mdx,html,css}"
+      run: pnpm lint:format
+      stage_fixed: true
+
+    - name: oxlint
+      glob: "*.{ts,js}"
+      run: pnpm lint:oxlint
+      stage_fixed: true
+
+    - name: typecheck
+      glob: "*.ts"
+      run: pnpm lint-dry:tsc
