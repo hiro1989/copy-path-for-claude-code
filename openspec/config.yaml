@@ -24,6 +24,7 @@ rules:
   proposal:
     - After creating or updating the proposal, commit it before proceeding to the next artifact.
     - If `.openspec.yaml` is uncommitted at this point, include it in the same commit as the proposal.
+    - After committing the proposal, repeat the following cycle up to 2 times. (1) run the `sdd-proposal-reviewer` agent with proposal_path, (2) if overall_verdict is FAIL, fix all action_items and commit. After 2 cycles, report any remaining unfixed items to the user before proceeding.
   design:
     - After creating or updating the design, commit it before proceeding to the next artifact.
   specs:
