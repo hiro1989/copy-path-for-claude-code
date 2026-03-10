@@ -3,7 +3,17 @@
   "version": "0.2",
   "language": "en",
   // words - list of words to be always considered correct
-  "words": ["esbuild", "openspec", "opsx", "oxfmt", "oxfmtrc", "oxlint", "oxlintrc", "tsgolint"],
+  "words": [
+    "esbuild",
+    "Frontmatter",
+    "openspec",
+    "opsx",
+    "oxfmt",
+    "oxfmtrc",
+    "oxlint",
+    "oxlintrc",
+    "tsgolint"
+  ],
   // flagWords - list of words to be always considered incorrect
   // This is useful for offensive words and common spelling errors.
   "flagWords": []
