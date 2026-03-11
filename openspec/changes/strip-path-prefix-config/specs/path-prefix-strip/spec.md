@@ -33,6 +33,11 @@ When `copy-path-for-claude-code.stripPrefix` is non-empty and the workspace-rela
 - **WHEN** `stripPrefix` is set to `""` (default)
 - **THEN** the workspace-relative path SHALL be used unchanged
 
+#### Scenario: Prefix equals the entire path
+
+- **WHEN** `stripPrefix` is set to `"root/"` and the workspace-relative path is exactly `root/`
+- **THEN** the formatted output SHALL use an empty string as the path (e.g., `@ `)
+
 #### Scenario: Stripping does not apply to absolute paths
 
 - **WHEN** `stripPrefix` is set to `"root/"` and the user copies an absolute path
