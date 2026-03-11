@@ -1,6 +1,8 @@
 ## Why
 
-When working in monorepo or nested workspace setups, the relative path from the VSCode workspace root includes a prefix (e.g., `root/`) that is irrelevant to Claude Code. Users need to strip this prefix so the copied `@path` matches what Claude Code expects.
+When working in monorepo or nested workspace setups, the relative path from the VSCode workspace root includes a prefix (e.g., `root/`) that is irrelevant to Claude Code. Users must manually edit every copied path before pasting it into Claude Code, which defeats the purpose of the extension.
+
+Without this setting, users in affected setups cannot reliably use the extension and must manually correct every copied path.
 
 ## What Changes
 
@@ -22,4 +24,5 @@ When working in monorepo or nested workspace setups, the relative path from the 
 
 - `src/extension.ts`: Modify `copyPath` and the relative path `getPath` callback to read the config and strip the prefix.
 - `package.json`: Add `contributes.configuration` section for the new setting.
+- `src/test/extension.test.ts`: Add tests for prefix stripping behavior.
 - No new dependencies required.
