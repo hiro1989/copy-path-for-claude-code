@@ -180,6 +180,84 @@ suite("Copy Path Commands", () => {
   })
 })
 
+suite("Strip Prefix", () => {
+  let workspaceUri: vscode.Uri
+
+  suiteSetup(() => {
+    const folder = vscode.workspace.workspaceFolders?.[0]
+    assert.ok(folder, "workspace folder must exist")
+    workspaceUri = folder.uri
+  })
+
+  teardown(async () => {
+    await vscode.workspace
+      .getConfiguration("copy-path-for-claude-code")
+      .update("stripPrefix", undefined, vscode.ConfigurationTarget.Workspace)
+  })
+
+  test("prefix matches and is stripped", async () => {
+    // The workspace-relative path for package.json is "package.json"
+    // Set stripPrefix to "pack" to test stripping
+    await vscode.workspace
+      .getConfiguration("copy-path-for-claude-code")
+      .update("stripPrefix", "pack", vscode.ConfigurationTarget.Workspace)
+
+    const fileUri = vscode.Uri.joinPath(workspaceUri, "package.json")
+    const doc = await vscode.workspace.openTextDocument(fileUri)
+    const editor = await vscode.window.showTextDocument(doc)
+    editor.selection = new vscode.Selection(0, 0, 0, 0)
+
+    await vscode.commands.executeCommand("copy-path-for-claude-code.copyRelativePath")
+    const clipboard = await vscode.env.clipboard.readText()
+    assert.strictEqual(clipboard, "@age.json ")
+  })
+
+  test("prefix does not match leaves path unchanged", async () => {
+    await vscode.workspace
+      .getConfiguration("copy-path-for-claude-code")
+      .update("stripPrefix", "root/", vscode.ConfigurationTarget.Workspace)
+
+    const fileUri = vscode.Uri.joinPath(workspaceUri, "package.json")
+    const doc = await vscode.workspace.openTextDocument(fileUri)
+    const editor = await vscode.window.showTextDocument(doc)
+    editor.selection = new vscode.Selection(0, 0, 0, 0)
+
+    await vscode.commands.executeCommand("copy-path-for-claude-code.copyRelativePath")
+    const clipboard = await vscode.env.clipboard.readText()
+    assert.strictEqual(clipboard, "@package.json ")
+  })
+
+  test("empty prefix leaves path unchanged", async () => {
+    await vscode.workspace
+      .getConfiguration("copy-path-for-claude-code")
+      .update("stripPrefix", "", vscode.ConfigurationTarget.Workspace)
+
+    const fileUri = vscode.Uri.joinPath(workspaceUri, "package.json")
+    const doc = await vscode.workspace.openTextDocument(fileUri)
+    const editor = await vscode.window.showTextDocument(doc)
+    editor.selection = new vscode.Selection(0, 0, 0, 0)
+
+    await vscode.commands.executeCommand("copy-path-for-claude-code.copyRelativePath")
+    const clipboard = await vscode.env.clipboard.readText()
+    assert.strictEqual(clipboard, "@package.json ")
+  })
+
+  test("prefix equals entire path produces empty path", async () => {
+    await vscode.workspace
+      .getConfiguration("copy-path-for-claude-code")
+      .update("stripPrefix", "package.json", vscode.ConfigurationTarget.Workspace)
+
+    const fileUri = vscode.Uri.joinPath(workspaceUri, "package.json")
+    const doc = await vscode.workspace.openTextDocument(fileUri)
+    const editor = await vscode.window.showTextDocument(doc)
+    editor.selection = new vscode.Selection(0, 0, 0, 0)
+
+    await vscode.commands.executeCommand("copy-path-for-claude-code.copyRelativePath")
+    const clipboard = await vscode.env.clipboard.readText()
+    assert.strictEqual(clipboard, "@ ")
+  })
+})
+
 suite("Keybinding When Clause", () => {
   // Read the extension's package.json to verify keybinding contributions
   let keybindings: { command: string; when?: string }[]
