@@ -257,6 +257,55 @@ suite("Strip Prefix", () => {
     assert.strictEqual(clipboard, "@ ")
   })
 
+  test("prefix stripping with single-line selection", async () => {
+    await vscode.workspace
+      .getConfiguration("copy-path-for-claude-code")
+      .update("stripPrefix", "pack", vscode.ConfigurationTarget.Workspace)
+
+    const fileUri = vscode.Uri.joinPath(workspaceUri, "package.json")
+    const doc = await vscode.workspace.openTextDocument(fileUri)
+    const editor = await vscode.window.showTextDocument(doc)
+    editor.selection = new vscode.Selection(2, 0, 2, 5)
+
+    await vscode.commands.executeCommand("copy-path-for-claude-code.copyRelativePath")
+    const clipboard = await vscode.env.clipboard.readText()
+    assert.strictEqual(clipboard, "@age.json#3 ")
+  })
+
+  test("prefix stripping with multi-line selection", async () => {
+    await vscode.workspace
+      .getConfiguration("copy-path-for-claude-code")
+      .update("stripPrefix", "pack", vscode.ConfigurationTarget.Workspace)
+
+    const fileUri = vscode.Uri.joinPath(workspaceUri, "package.json")
+    const doc = await vscode.workspace.openTextDocument(fileUri)
+    const editor = await vscode.window.showTextDocument(doc)
+    editor.selection = new vscode.Selection(1, 0, 3, 5)
+
+    await vscode.commands.executeCommand("copy-path-for-claude-code.copyRelativePath")
+    const clipboard = await vscode.env.clipboard.readText()
+    assert.strictEqual(clipboard, "@age.json#2-4 ")
+  })
+
+  test("prefix stripping with multiple cursors", async () => {
+    await vscode.workspace
+      .getConfiguration("copy-path-for-claude-code")
+      .update("stripPrefix", "pack", vscode.ConfigurationTarget.Workspace)
+
+    const fileUri = vscode.Uri.joinPath(workspaceUri, "package.json")
+    const doc = await vscode.workspace.openTextDocument(fileUri)
+    const editor = await vscode.window.showTextDocument(doc)
+    editor.selections = [
+      new vscode.Selection(0, 0, 0, 0),
+      new vscode.Selection(2, 0, 2, 0),
+      new vscode.Selection(4, 0, 4, 0),
+    ]
+
+    await vscode.commands.executeCommand("copy-path-for-claude-code.copyRelativePath")
+    const clipboard = await vscode.env.clipboard.readText()
+    assert.strictEqual(clipboard, "- @age.json#1\n- @age.json#3\n- @age.json#5\n")
+  })
+
   test("absolute path is unaffected by stripPrefix", async () => {
     await vscode.workspace
       .getConfiguration("copy-path-for-claude-code")
