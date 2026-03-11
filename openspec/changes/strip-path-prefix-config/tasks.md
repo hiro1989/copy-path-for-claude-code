@@ -1,6 +1,6 @@
 ## 1. Configuration
 
-- [ ] 1.1 Add `copy-path-for-claude-code.stripPrefix` setting to `contributes.configuration` in `package.json` with type `string`, default `""`, and `resource` scope
+- [x] 1.1 Add `copy-path-for-claude-code.stripPrefix` setting to `contributes.configuration` in `package.json` with type `string`, default `""`, and `resource` scope
 
 ## 2. Core Implementation
 

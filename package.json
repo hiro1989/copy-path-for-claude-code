@@ -72,6 +72,17 @@
         }
       ]
     },
+    "configuration": {
+      "title": "Copy Path for Claude Code",
+      "properties": {
+        "copy-path-for-claude-code.stripPrefix": {
+          "type": "string",
+          "default": "",
+          "scope": "resource",
+          "description": "A string prefix to strip from the beginning of copied relative paths. Useful for monorepo setups where the workspace root adds an unwanted prefix (e.g., \"root/\")."
+        }
+      }
+    },
     "keybindings": [
       {
         "command": "copy-path-for-claude-code.copyRelativePath",
