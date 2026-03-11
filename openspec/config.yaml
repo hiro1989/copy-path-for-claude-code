@@ -30,6 +30,7 @@ rules:
     - After committing the design, repeat the following cycle up to 2 times. (1) run the `sdd-design-reviewer` agent with design_path, (2) if overall_verdict is FAIL, fix all action_items and commit. After 2 cycles, report any remaining unfixed items to the user before proceeding.
   specs:
     - After creating or updating the specs, commit them before proceeding to the next artifact.
+    - After committing the specs, repeat the following cycle up to 2 times. (1) run the `sdd-delta-specs-reviewer` agent with spec_path, (2) if overall_verdict is FAIL, fix all action_items and commit. After 2 cycles, report any remaining unfixed items to the user before proceeding.
   tasks:
     - After creating or updating the tasks, commit them before proceeding to the next artifact.
     - Always include a task for writing test code
