@@ -9,7 +9,7 @@
 ## 3. Tests
 
 - [x] 3.1 Add tests for prefix stripping: prefix matches, prefix does not match, prefix is empty, prefix equals entire path
-- [ ] 3.2 Verify absolute path copy is unaffected by the `stripPrefix` setting
+- [x] 3.2 Verify absolute path copy is unaffected by the `stripPrefix` setting
 - [ ] 3.3 Add tests for prefix stripping combined with line-number formatting: single-line selection, multi-line selection, and multiple cursors
 
 ## 4. Documentation

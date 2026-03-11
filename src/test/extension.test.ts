@@ -256,6 +256,21 @@ suite("Strip Prefix", () => {
     const clipboard = await vscode.env.clipboard.readText()
     assert.strictEqual(clipboard, "@ ")
   })
+
+  test("absolute path is unaffected by stripPrefix", async () => {
+    await vscode.workspace
+      .getConfiguration("copy-path-for-claude-code")
+      .update("stripPrefix", "pack", vscode.ConfigurationTarget.Workspace)
+
+    const fileUri = vscode.Uri.joinPath(workspaceUri, "package.json")
+    const doc = await vscode.workspace.openTextDocument(fileUri)
+    const editor = await vscode.window.showTextDocument(doc)
+    editor.selection = new vscode.Selection(0, 0, 0, 0)
+
+    await vscode.commands.executeCommand("copy-path-for-claude-code.copyAbsolutePath")
+    const clipboard = await vscode.env.clipboard.readText()
+    assert.strictEqual(clipboard, `@${fileUri.fsPath} `)
+  })
 })
 
 suite("Keybinding When Clause", () => {
