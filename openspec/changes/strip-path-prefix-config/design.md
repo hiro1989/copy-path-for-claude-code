@@ -14,7 +14,7 @@ Currently the `getPath` callback is passed directly to `copyPath` with no transf
 **Non-Goals:**
 
 - Regex or glob-based path transformation.
-- Per-folder or per-workspace-folder settings (a single workspace-level setting is sufficient).
+- Regex or pattern-based per-folder overrides (the setting uses `resource` scope for basic multi-root support, but advanced per-folder logic is out of scope).
 - Stripping prefixes from absolute paths.
 
 ## Decisions
@@ -44,7 +44,7 @@ Currently the `getPath` callback is passed directly to `copyPath` with no transf
 }
 ```
 
-**Rationale:** This keeps the stripping logic in one place and ensures all downstream formatting (line numbers, trailing slashes, multi-select) uses the stripped path. No changes needed to `formatExplorerPath`, `formatLineSuffix`, or `formatLineNumber`.
+**Rationale:** This keeps the stripping logic in one place and ensures all downstream formatting (line numbers, trailing slashes, multi-select) uses the stripped path. No changes needed to `copyPath`'s signature or internals, nor to `formatExplorerPath`, `formatLineSuffix`, or `formatLineNumber`.
 
 **Alternative considered:** A separate `transformPath` function called inside `copyPath`. Rejected — adding abstraction for a single `startsWith` + `slice` is unnecessary.
 
