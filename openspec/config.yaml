@@ -36,3 +36,4 @@ rules:
     - Always include a task for writing test code
     - Add a final task titled "Update the related section in README.md".
     - After committing the tasks, repeat the following cycle up to 2 times. (1) run the `sdd-tasks-reviewer` agent with tasks_path, (2) if overall_verdict is FAIL, fix all action_items and commit. After 2 cycles, report any remaining unfixed items to the user before proceeding.
+    - After all tasks are implemented and committed, run the `openspec-verify-change` skill via a subagent to verify the implementation matches the change artifacts. Report the result to the user.
