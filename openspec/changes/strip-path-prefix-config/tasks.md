@@ -4,7 +4,7 @@
 
 ## 2. Core Implementation
 
-- [ ] 2.1 Modify the `copyRelativePath` command's `getPath` callback in `src/extension.ts` to read the `stripPrefix` config and strip the matching prefix from the relative path
+- [x] 2.1 Modify the `copyRelativePath` command's `getPath` callback in `src/extension.ts` to read the `stripPrefix` config and strip the matching prefix from the relative path
 
 ## 3. Tests
 

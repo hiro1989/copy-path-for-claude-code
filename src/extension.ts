@@ -88,7 +88,20 @@ export function activate(context: vscode.ExtensionContext): void {
     vscode.commands.registerCommand(
       "copy-path-for-claude-code.copyRelativePath",
       (uri?: vscode.Uri, allUris?: vscode.Uri[]) =>
-        copyPath((u) => vscode.workspace.asRelativePath(u), uri, allUris),
+        copyPath(
+          (u) => {
+            let path = vscode.workspace.asRelativePath(u)
+            const prefix = vscode.workspace
+              .getConfiguration("copy-path-for-claude-code")
+              .get<string>("stripPrefix", "")
+            if (prefix && path.startsWith(prefix)) {
+              path = path.slice(prefix.length)
+            }
+            return path
+          },
+          uri,
+          allUris,
+        ),
     ),
     vscode.commands.registerCommand(
       "copy-path-for-claude-code.copyAbsolutePath",
