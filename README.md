@@ -73,6 +73,12 @@ Optionally, select text before copying to include line numbers.
 2. Select `Copy Relative Path for Claude Code` or `Copy Absolute Path for Claude Code`
 3. Paste the result into Claude Code
 
+## Configuration
+
+| Setting                                 | Type     | Default | Description                                                                                                                                                           |
+| --------------------------------------- | -------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `copy-path-for-claude-code.stripPrefix` | `string` | `""`    | A prefix to strip from the beginning of copied relative paths. Useful for monorepo setups (e.g., set to `"root/"` to turn `@root/src/index.ts` into `@src/index.ts`). |
+
 ## Keyboard Shortcuts
 
 > **Note:** Keyboard shortcuts only work when an editor has focus (VS Code API limitation). When the Explorer is focused, use the right-click context menu instead.

@@ -14,4 +14,4 @@
 
 ## 4. Documentation
 
-- [ ] 4.1 Update the related section in README.md
+- [x] 4.1 Update the related section in README.md
