@@ -1,6 +1,8 @@
 ## Why
 
-`src/extension.ts` contains all logic in a single file — formatting helpers, clipboard orchestration, and VS Code activation are mixed together. The non-exported utility functions (`formatLineNumber`, `formatLineSuffix`, `formatExplorerPath`) cannot be unit-tested in isolation because they are not exported. Extracting them into a dedicated module improves testability and separation of concerns.
+This project mandates TDD (CLAUDE.md), but the current structure of `src/extension.ts` makes it impossible to unit-test formatting logic in isolation. `formatLineNumber`, `formatLineSuffix`, and `formatExplorerPath` are non-exported functions buried in the activation module, so they can only be tested indirectly through VS Code command integration tests.
+
+Without this change, bugs in formatting functions cannot be caught by focused unit tests, and future formatting changes cannot follow the mandatory TDD cycle (write test first, then implement).
 
 ## What Changes
 
@@ -23,5 +25,6 @@
 
 - `src/extension.ts`: reduced to orchestration and activation logic
 - `src/format.ts`: new file with formatting utilities
-- `src/test/`: new test file for format utilities
+- `src/test/format.test.ts`: new unit tests for formatting functions
+- `dist/`: bundle output unchanged (esbuild tree-shakes the same code regardless of module boundaries)
 - No API, dependency, or user-facing behavior changes
