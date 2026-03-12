@@ -1,41 +1,6 @@
 import vscode from "vscode"
 
-function formatLineNumber(selection: vscode.Selection): string {
-  const startLine = selection.start.line + 1
-  let endLine = selection.end.line + 1
-  if (selection.end.character === 0 && startLine < endLine) {
-    endLine -= 1
-  }
-  if (startLine === endLine) {
-    return `#${startLine}`
-  }
-  return `#${startLine}-${endLine}`
-}
-
-function formatLineSuffix(selection: vscode.Selection): string {
-  if (selection.isEmpty) {
-    return ""
-  }
-  const startLine = selection.start.line + 1
-  let endLine = selection.end.line + 1
-  if (selection.end.character === 0 && startLine < endLine) {
-    endLine -= 1
-  }
-  if (startLine === endLine) {
-    return `#${startLine}`
-  }
-  return `#${startLine}-${endLine}`
-}
-
-async function formatExplorerPath(
-  uri: vscode.Uri,
-  getPath: (uri: vscode.Uri) => string,
-): Promise<string> {
-  const stat = await vscode.workspace.fs.stat(uri)
-  const path = getPath(uri)
-  const trailingSlash = stat.type & vscode.FileType.Directory ? "/" : ""
-  return `@${path}${trailingSlash}`
-}
+import { formatExplorerPath, formatLineNumber, formatLineSuffix } from "./format"
 
 async function copyPath(
   getPath: (uri: vscode.Uri) => string,
