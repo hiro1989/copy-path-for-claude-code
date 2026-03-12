@@ -45,6 +45,10 @@ src/test/  # Test files (compiled by tsc to out/, run with @vscode/test-cli)
 - Test files are compiled with `tsc`, output goes to `out/`.
 - Tests use `@vscode/test-cli` with mocha. Do not import `mocha` directly in test files — `suite`, `test`, etc. are provided globally by the test runner.
 
+## TDD (Test Driven Development)
+
+- TDD is mandatory for all implementation work in this project. Always write tests before implementation code.
+
 ## Less is More
 
 - Too much of a good thing is bad. Keep all output short and to the point.

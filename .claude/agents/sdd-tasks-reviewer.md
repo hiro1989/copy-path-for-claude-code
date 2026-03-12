@@ -64,16 +64,17 @@ Assess the tasks against the following criteria. For each criterion, assign a ve
 - Tasks include documentation updates if the change affects user-facing behavior
 - No obvious category of work is missing
 
-#### D. Ordering and dependencies
+#### D. Ordering and dependencies (TDD-first)
 
+- **TDD order is mandatory**: for each feature or behavior, test tasks MUST appear before their corresponding implementation tasks
+- Recommended per-feature cycle: (1) stub functions with name, JSDoc, and types but no logic, (2) tests against the stubs, (3) real implementation to make the tests pass
 - Tasks are ordered so dependencies come before dependents
 - Grouping into sections is logical (by component, layer, or phase)
 - No circular dependency between tasks
 - Foundations first: config or manifest changes (e.g., `package.json`) before implementation code that depends on them
-- Core logic before edge cases: happy path before error handling or boundary conditions
-- Implementation before tests: code under test is written before its test tasks
 - Inner before outer: utilities and data models before UI or handlers that use them
 - Each task completion leaves the project in a buildable, non-broken state
+- FAIL if implementation tasks are ordered before their corresponding test tasks
 
 #### E. Clarity and actionability
 

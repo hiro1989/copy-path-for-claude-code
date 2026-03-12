@@ -51,7 +51,9 @@ When creating or editing an artifact, read its template file first and follow it
 ### 4. `changes/{change-name}/tasks.md`
 
 - Checklist of all tasks needed to complete the change: implementation, tests, migrations, etc.
-- **CRITICAL**: You MUST create exactly one git commit per task. Complete a task, commit it, then move to the next. NEVER batch multiple tasks into a single commit.
+- **TDD is mandatory**: always plan tasks in test-first order. For each feature or behavior, the test task MUST come before its implementation task.
+  - Recommended cycle per feature: (1) create stub functions with function name, JSDoc, and input or output types but no logic, (2) write tests against the stubs, (3) implement the real logic to make tests pass.
+- **CRITICAL**: You MUST create exactly one git commit per task. Complete a task, commit it, then move to the next. NEVER batch multiple tasks into a single commit. Each commit MUST include the updated `tasks.md` file (with the checkbox marked) alongside the implementation changes.
 
 ### 5. `changes/archive/YYYY-MM-DD-{change-name}/`
 
