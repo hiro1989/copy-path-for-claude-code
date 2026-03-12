@@ -4,6 +4,8 @@
 
 ## 2. Write unit tests
 
+Note: `formatExplorerPath` is intentionally excluded from unit tests because it calls `vscode.workspace.fs.stat`. Coverage is provided by the existing Explorer Path Copy integration tests in `extension.test.ts`.
+
 - [ ] 2.1 Create `src/test/format.test.ts` with tests for `formatLineNumber` (single line, multi-line, column-0 edge case)
 - [ ] 2.2 Add tests for `formatLineSuffix` (empty selection, single line, multi-line, column-0 edge case)
 
@@ -15,9 +17,8 @@
 
 ## 4. Update extension module
 
-- [ ] 4.1 Update `src/extension.ts` to import formatting functions from `src/format.ts` and remove local definitions
-- [ ] 4.2 Run existing integration tests to verify no regressions
+- [ ] 4.1 Update `src/extension.ts` to import formatting functions from `src/format.ts`, remove local definitions, and run existing integration tests to verify no regressions
 
 ## 5. Documentation
 
-- [ ] 5.1 Update the related section in README.md
+- [ ] 5.1 Update the Directory Structure section in README.md to mention `src/format.ts`
