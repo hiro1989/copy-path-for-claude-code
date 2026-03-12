@@ -42,9 +42,11 @@ Keep in `extension.ts`: `copyPath` (orchestration logic tightly coupled to VS Co
 
 ### 3. Test approach
 
-Unit tests in `src/test/format.test.ts` will test `formatLineNumber` and `formatLineSuffix` with mock `vscode.Selection` objects. `formatExplorerPath` depends on `vscode.workspace.fs.stat`, so it will be tested in integration tests (existing coverage is sufficient).
+Unit tests in `src/test/format.test.ts` will test `formatLineNumber` and `formatLineSuffix` with mock `vscode.Selection` objects.
 
-**Alternative considered:** Refactoring `formatExplorerPath` to accept a stat result instead of calling `fs.stat` internally — rejected as over-engineering for this scope.
+**Scope note:** The proposal states "unit tests for each extracted function," but this design consciously excludes `formatExplorerPath` from `format.test.ts`. The function calls `vscode.workspace.fs.stat` internally, making isolated unit testing impractical without a larger refactor. Existing integration tests in `extension.test.ts` already cover its behavior through the Explorer Path Copy suite.
+
+**Alternative considered:** Refactoring `formatExplorerPath` to accept a `vscode.FileType` parameter instead of calling `fs.stat` internally. This would invert the async encapsulation — callers (`copyPath`) would need to await the stat result before calling `formatExplorerPath` and supply a test double for a single function. The cost is disproportionate to the benefit for this scope.
 
 ## Risks / Trade-offs
 
