@@ -5,8 +5,16 @@ import type vscode from "vscode"
  * When the end cursor is at column 0 of a line past the start, the end line
  * is adjusted back by one (the user selected "up to" that line, not including it).
  */
-export function formatLineNumber(_selection: vscode.Selection): string {
-  throw new Error("Not implemented")
+export function formatLineNumber(selection: vscode.Selection): string {
+  const startLine = selection.start.line + 1
+  let endLine = selection.end.line + 1
+  if (selection.end.character === 0 && startLine < endLine) {
+    endLine -= 1
+  }
+  if (startLine === endLine) {
+    return `#${startLine}`
+  }
+  return `#${startLine}-${endLine}`
 }
 
 /**
