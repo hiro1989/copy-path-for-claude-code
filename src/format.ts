@@ -42,8 +42,12 @@ export function formatLineSuffix(selection: vscode.Selection): string {
  * Appends a trailing slash for directories.
  */
 export async function formatExplorerPath(
-  _uri: vscode.Uri,
-  _getPath: (uri: vscode.Uri) => string,
+  uri: vscode.Uri,
+  getPath: (uri: vscode.Uri) => string,
 ): Promise<string> {
-  throw new Error("Not implemented")
+  const { workspace, FileType } = await import("vscode")
+  const stat = await workspace.fs.stat(uri)
+  const path = getPath(uri)
+  const trailingSlash = stat.type & FileType.Directory ? "/" : ""
+  return `@${path}${trailingSlash}`
 }
