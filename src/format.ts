@@ -22,8 +22,19 @@ export function formatLineNumber(selection: vscode.Selection): string {
  * Returns an empty string when the selection is empty (cursor with no highlight),
  * otherwise delegates to the same logic as `formatLineNumber`.
  */
-export function formatLineSuffix(_selection: vscode.Selection): string {
-  throw new Error("Not implemented")
+export function formatLineSuffix(selection: vscode.Selection): string {
+  if (selection.isEmpty) {
+    return ""
+  }
+  const startLine = selection.start.line + 1
+  let endLine = selection.end.line + 1
+  if (selection.end.character === 0 && startLine < endLine) {
+    endLine -= 1
+  }
+  if (startLine === endLine) {
+    return `#${startLine}`
+  }
+  return `#${startLine}-${endLine}`
 }
 
 /**
