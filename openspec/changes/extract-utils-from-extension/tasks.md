@@ -17,8 +17,8 @@ Note: `formatExplorerPath` is intentionally excluded from unit tests because it 
 
 ## 4. Update extension module
 
-- [ ] 4.1 Update `src/extension.ts` to import formatting functions from `src/format.ts`, remove local definitions, and run existing integration tests to verify no regressions
+- [ ] 4.1 Update `src/extension.ts` to import formatting functions from `src/format.ts`, remove local definitions, and run existing integration tests to verify no regressions## 5. Documentation
 
 ## 5. Documentation
 
-- [ ] 5.1 Update the Directory Structure section in README.md to mention `src/format.ts`
+- Nothing. Just refactoring internal implementation without changing public API or behavior.
