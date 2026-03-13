@@ -1,6 +1,6 @@
 import vscode from "vscode"
 
-import { formatExplorerPath, formatLineNumber, formatLineSuffix } from "./format"
+import { formatExplorerPath, formatLineNumber, formatLineSuffix, sortPaths } from "./format"
 
 async function copyPath(
   getPath: (uri: vscode.Uri) => string,
@@ -14,7 +14,11 @@ async function copyPath(
     // Explorer context menu invocation
     const uris = allUris && 1 < allUris.length ? allUris : [uri]
     if (1 < uris.length) {
-      const paths = await Promise.all(uris.map((u) => formatExplorerPath(u, getPath)))
+      let paths = await Promise.all(uris.map((u) => formatExplorerPath(u, getPath)))
+      const shouldSort = false
+      if (shouldSort) {
+        paths = sortPaths(paths)
+      }
       text = `${paths.map((p) => `- ${p}`).join("\n")}\n`
       message = `Copied ${uris.length} paths`
     } else {
@@ -31,7 +35,12 @@ async function copyPath(
     }
     const path = getPath(editor.document.uri)
     if (1 < editor.selections.length) {
-      text = `${editor.selections.map((s) => `- @${path}${formatLineNumber(s)}`).join("\n")}\n`
+      let lines = editor.selections.map((s) => `@${path}${formatLineNumber(s)}`)
+      const shouldSort = false
+      if (shouldSort) {
+        lines = sortPaths(lines)
+      }
+      text = `${lines.map((l) => `- ${l}`).join("\n")}\n`
       message = `Copied ${editor.selections.length} lines`
     } else {
       const suffix = formatLineSuffix(editor.selection)
