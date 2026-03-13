@@ -75,6 +75,12 @@
     "configuration": {
       "title": "Copy Path for Claude Code",
       "properties": {
+        "copy-path-for-claude-code.sortPaths": {
+          "type": "boolean",
+          "default": false,
+          "scope": "resource",
+          "description": "When enabled, sort multi-item copy output alphabetically by path and numerically by line number."
+        },
         "copy-path-for-claude-code.stripPrefix": {
           "type": "string",
           "default": "",
