@@ -16,7 +16,7 @@ The extension SHALL provide a boolean configuration option `copy-path-for-claude
 
 ### Requirement: Alphabetical sort for multi-file explorer copy
 
-When `sortPaths` is `true` and multiple files or directories are selected in the explorer, the system SHALL sort the formatted path strings alphabetically before writing to the clipboard.
+When `sortPaths` is `true` and multiple files or directories are selected in the explorer, the system SHALL sort the formatted path strings (the `@path` strings before the `- ` bullet prefix is added) alphabetically before writing to the clipboard.
 
 #### Scenario: Multi-file explorer copy with sort enabled
 
@@ -48,7 +48,7 @@ When `sortPaths` is `true` and multiple files or directories are selected in the
 
 ### Requirement: Alphabetical and numeric sort for multi-cursor editor copy
 
-When `sortPaths` is `true` and multiple cursors are active in the editor, the system SHALL sort the formatted path strings by file path alphabetically, then by start line number numerically, then by end line number numerically.
+When `sortPaths` is `true` and multiple cursors are active in the editor, the system SHALL sort the formatted path strings (the `@path#line` strings before the `- ` bullet prefix is added) by file path alphabetically, then by start line number numerically, then by end line number numerically. Multi-cursor selections always belong to a single file in VSCode, so cross-file multi-cursor is out of scope.
 
 #### Scenario: Multi-cursor copy with sort enabled, same file
 
@@ -92,4 +92,9 @@ When only a single item is being copied (single file from explorer or single cur
 #### Scenario: Single file copy with sort enabled
 
 - **WHEN** user copies a single file from explorer with `sortPaths` set to `true`
+- **THEN** the clipboard output SHALL be identical to when `sortPaths` is `false`
+
+#### Scenario: Single cursor copy with sort enabled
+
+- **WHEN** user copies with a single cursor in the editor with `sortPaths` set to `true`
 - **THEN** the clipboard output SHALL be identical to when `sortPaths` is `false`
