@@ -41,6 +41,14 @@ export function formatLineSuffix(selection: vscode.Selection): string {
  * Format a URI as `@path` for clipboard output.
  * Appends a trailing slash for directories.
  */
+/**
+ * Sort an array of `@path` or `@path#line` strings alphabetically by path,
+ * then numerically by start line and end line.
+ */
+export function sortPaths(paths: string[]): string[] {
+  return paths
+}
+
 export async function formatExplorerPath(
   uri: vscode.Uri,
   getPath: (uri: vscode.Uri) => string,

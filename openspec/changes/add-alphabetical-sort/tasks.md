@@ -1,6 +1,6 @@
 ## 1. Sort function stubs and tests
 
-- [ ] 1.1 Add `sortPaths` stub to `format.ts` with JSDoc, signature `(paths: string[]) => string[]`, and no-op body (returns input unchanged)
+- [x] 1.1 Add `sortPaths` stub to `format.ts` with JSDoc, signature `(paths: string[]) => string[]`, and no-op body (returns input unchanged)
 - [ ] 1.2 Write tests for `sortPaths`: alphabetical sort, numeric-not-lexicographic sort (9 < 13 < 126), start-then-end line sort, single-item no-op, empty array
 - [ ] 1.3 Implement `sortPaths` logic: split on last `#`, sort by path alphabetically then by start line and end line numerically
 
