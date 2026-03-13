@@ -46,7 +46,34 @@ export function formatLineSuffix(selection: vscode.Selection): string {
  * then numerically by start line and end line.
  */
 export function sortPaths(paths: string[]): string[] {
-  return paths
+  const copy = [...paths]
+  copy.sort(comparePaths)
+  return copy
+}
+
+function comparePaths(a: string, b: string): number {
+  const hashA = a.lastIndexOf("#")
+  const hashB = b.lastIndexOf("#")
+  const pathA = hashA === -1 ? a : a.slice(0, hashA)
+  const pathB = hashB === -1 ? b : b.slice(0, hashB)
+
+  if (pathA !== pathB) {
+    return pathA < pathB ? -1 : 1
+  }
+
+  const lineA = hashA === -1 ? "" : a.slice(hashA + 1)
+  const lineB = hashB === -1 ? "" : b.slice(hashB + 1)
+  const partsA = lineA.split("-").map(Number)
+  const partsB = lineB.split("-").map(Number)
+  const startA = partsA[0] ?? 0
+  const startB = partsB[0] ?? 0
+
+  if (startA !== startB) {
+    return startA - startB
+  }
+  const endA = partsA[1] ?? startA
+  const endB = partsB[1] ?? startB
+  return endA - endB
 }
 
 export async function formatExplorerPath(
