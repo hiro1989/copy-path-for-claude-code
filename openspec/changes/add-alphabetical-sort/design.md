@@ -2,8 +2,8 @@
 
 The extension copies file paths in `@path` format. Multi-item output (multi-file from explorer, multi-cursor from editor) currently preserves VSCode's selection order. There are two code paths that produce multi-item output:
 
-- **Explorer**: `copyPath` in `extension.ts` lines 16-19 — maps URIs to formatted paths, joins as bullet list
-- **Editor**: `copyPath` in `extension.ts` lines 33-34 — maps selections to `@path#line` strings, joins as bullet list
+- **Explorer**: `copyPath` in `extension.ts` — maps URIs to formatted paths, joins as bullet list
+- **Editor**: `copyPath` in `extension.ts` — maps selections to `@path#line` strings, joins as bullet list
 
 Both produce a `string[]` before joining. Sorting can be inserted at this array stage.
 
@@ -33,7 +33,7 @@ Add a `sortPaths` function to `format.ts` rather than creating a new file. The f
 
 Sort the already-formatted `@path#line` strings rather than sorting URIs or selections before formatting. This simplifies the interface to `(paths: string[]) => string[]`.
 
-For line numbers, use a natural sort that extracts numeric segments so `#13` sorts before `#126`. The sort key is: (1) file path alphabetically, (2) start line numerically, (3) end line numerically.
+The sort function receives strings in the format `@path`, `@path#line`, or `@path#start-end`. Parsing strategy: split on the last `#` to separate the path from the optional line suffix. If no `#` is present, the entire string is the path with no line number. If `#` is present, the segment after `#` is parsed as `start` or `start-end` (both numeric). Sort key: (1) path part alphabetically, (2) start line numerically, (3) end line numerically. Note: the `- ` bullet prefix is added during join, not present in the array elements passed to the sort function.
 
 **Alternative considered:** Sort selections or URIs before formatting — rejected because it would require passing sort awareness into both the explorer and editor code paths separately, increasing coupling.
 
@@ -49,3 +49,4 @@ In `copyPath`, sort the `paths` or mapped selections array immediately before jo
 
 - **Sort stability**: JavaScript's `Array.prototype.sort` is stable in all modern engines — identical paths with different line ranges will preserve relative order for equal sort keys.
 - **Performance**: Sorting is O(n log n) on a small array (number of selections or files). Negligible.
+- **package.json config**: The `configuration` contribution uses standard VSCode API — no minimum engine version bump needed beyond the existing requirement.
