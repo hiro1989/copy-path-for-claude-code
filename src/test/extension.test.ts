@@ -251,6 +251,77 @@ suite("Strip Prefix", () => {
   })
 })
 
+suite("Sort Paths Integration", () => {
+  let workspaceUri: vscode.Uri
+
+  suiteSetup(() => {
+    const folder = vscode.workspace.workspaceFolders?.[0]
+    assert.ok(folder, "workspace folder must exist")
+    workspaceUri = folder.uri
+  })
+
+  teardown(async () => {
+    await vscode.workspace
+      .getConfiguration("copy-path-for-claude-code")
+      .update("sortPaths", undefined, vscode.ConfigurationTarget.Workspace)
+  })
+
+  test("multi-cursor sorted when sortPaths enabled", async () => {
+    await vscode.workspace
+      .getConfiguration("copy-path-for-claude-code")
+      .update("sortPaths", true, vscode.ConfigurationTarget.Workspace)
+
+    const fileUri = vscode.Uri.joinPath(workspaceUri, "package.json")
+    const doc = await vscode.workspace.openTextDocument(fileUri)
+    const editor = await vscode.window.showTextDocument(doc)
+
+    editor.selections = [
+      new vscode.Selection(4, 0, 4, 0),
+      new vscode.Selection(0, 0, 0, 0),
+      new vscode.Selection(2, 0, 2, 0),
+    ]
+
+    await vscode.commands.executeCommand("copy-path-for-claude-code.copyRelativePath")
+    const clipboard = await vscode.env.clipboard.readText()
+    assert.strictEqual(clipboard, "- @package.json#1\n- @package.json#3\n- @package.json#5\n")
+  })
+
+  test("multi-cursor preserves order when sortPaths disabled", async () => {
+    await vscode.workspace
+      .getConfiguration("copy-path-for-claude-code")
+      .update("sortPaths", false, vscode.ConfigurationTarget.Workspace)
+
+    const fileUri = vscode.Uri.joinPath(workspaceUri, "package.json")
+    const doc = await vscode.workspace.openTextDocument(fileUri)
+    const editor = await vscode.window.showTextDocument(doc)
+
+    editor.selections = [
+      new vscode.Selection(4, 0, 4, 0),
+      new vscode.Selection(0, 0, 0, 0),
+      new vscode.Selection(2, 0, 2, 0),
+    ]
+
+    await vscode.commands.executeCommand("copy-path-for-claude-code.copyRelativePath")
+    const clipboard = await vscode.env.clipboard.readText()
+    assert.strictEqual(clipboard, "- @package.json#5\n- @package.json#1\n- @package.json#3\n")
+  })
+
+  test("single-item no-op with sort enabled", async () => {
+    await vscode.workspace
+      .getConfiguration("copy-path-for-claude-code")
+      .update("sortPaths", true, vscode.ConfigurationTarget.Workspace)
+
+    const fileUri = vscode.Uri.joinPath(workspaceUri, "package.json")
+    const doc = await vscode.workspace.openTextDocument(fileUri)
+    const editor = await vscode.window.showTextDocument(doc)
+    editor.selection = new vscode.Selection(0, 0, 0, 0)
+
+    await vscode.commands.executeCommand("copy-path-for-claude-code.copyRelativePath")
+    const clipboard = await vscode.env.clipboard.readText()
+    assert.strictEqual(clipboard, "@package.json ")
+  })
+})
+
 suite("Keybinding When Clause", () => {
   // Read the extension's package.json to verify keybinding contributions
   let keybindings: { command: string; when?: string }[]
