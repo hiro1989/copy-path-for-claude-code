@@ -1,7 +1,7 @@
 {
   "name": "copy-path-for-claude-code",
   "displayName": "Copy Path for Claude Code",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Copy the active file path in Claude Code @path format to the clipboard, with optional line numbers.",
   "categories": [
     "Other"
