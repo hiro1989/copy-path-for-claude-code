@@ -2,10 +2,10 @@
 
 The extension copies file paths in `@path` format. Multi-item output (multi-file from explorer, multi-cursor from editor) currently preserves VSCode's selection order. There are two code paths that produce multi-item output:
 
-- **Explorer**: `copyPath` in `extension.ts` — maps URIs to formatted paths, joins as bullet list
-- **Editor**: `copyPath` in `extension.ts` — maps selections to `@path#line` strings, joins as bullet list
+- **Explorer**: `copyPath` in `extension.ts` — maps URIs to a `paths` array (`string[]`), then joins as bullet list
+- **Editor**: `copyPath` in `extension.ts` — maps selections to `@path#line` strings inline in a template literal (no intermediate array)
 
-Both produce a `string[]` before joining. Sorting can be inserted at this array stage.
+The explorer path already has an intermediate `string[]`. The editor path requires extracting the `.map()` result into a variable before sorting can be applied.
 
 ## Goals / Non-Goals
 
@@ -43,7 +43,7 @@ Use `copy-path-for-claude-code.sortPaths` as the configuration key. Read it at c
 
 ### 4. Integration point: after array creation, before join
 
-In `copyPath`, sort the `paths` or mapped selections array immediately before joining with `\n`. This is a single insertion point for both explorer and editor paths.
+In `copyPath`, sort the array of formatted strings immediately before joining with `\n`. For the explorer path, sort the existing `paths` array. For the editor path, extract the `.map()` result into an intermediate variable first, then sort it. Both paths converge on the same pattern: build array → sort → join.
 
 ## Risks / Trade-offs
 
