@@ -1,6 +1,6 @@
 ## Why
 
-When copying multiple files or lines, users may want the output sorted alphabetically for readability and consistency. Currently, items are copied in the order VSCode provides, which may not be intuitive. A configurable sort option gives users control over output ordering.
+When copying multiple files or lines, the output order depends on VSCode's internal selection order, which is non-deterministic from the user's perspective. This makes multi-item output non-reproducible and harder to review or share consistently. Without this change, users must manually reorder copied paths every time they want a consistent, scannable list.
 
 ## What Changes
 
@@ -23,5 +23,6 @@ When copying multiple files or lines, users may want the output sorted alphabeti
 
 - `package.json`: New `configuration` entry for the sort setting
 - `src/extension.ts`: Read config and apply sorting before clipboard write
-- `src/format.ts`: Possible sort utility function
+- `src/format.ts` or `src/sort.ts`: Sort utility function (location to be decided in design)
+- `src/test/`: New or updated test files for sort behavior
 - No breaking changes — disabled by default
