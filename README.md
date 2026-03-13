@@ -75,9 +75,10 @@ Optionally, select text before copying to include line numbers.
 
 ## Configuration
 
-| Setting                                 | Type     | Default | Description                                                                                                                                                           |
-| --------------------------------------- | -------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `copy-path-for-claude-code.stripPrefix` | `string` | `""`    | A prefix to strip from the beginning of copied relative paths. Useful for monorepo setups (e.g., set to `"root/"` to turn `@root/src/index.ts` into `@src/index.ts`). |
+| Setting                                 | Type      | Default | Description                                                                                                                                                           |
+| --------------------------------------- | --------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `copy-path-for-claude-code.sortPaths`   | `boolean` | `false` | When enabled, sort multi-item copy output alphabetically by path and numerically by line number.                                                                      |
+| `copy-path-for-claude-code.stripPrefix` | `string`  | `""`    | A prefix to strip from the beginning of copied relative paths. Useful for monorepo setups (e.g., set to `"root/"` to turn `@root/src/index.ts` into `@src/index.ts`). |
 
 ## Keyboard Shortcuts
 
