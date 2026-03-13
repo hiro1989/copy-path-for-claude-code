@@ -82,8 +82,17 @@ When `sortPaths` is `true` and multiple cursors are active in the editor, the sy
 
 #### Scenario: Numeric sort avoids lexicographic ordering
 
-- **WHEN** user copies with cursors on lines 9, 13, and 126 in the same file and `sortPaths` is `true`
-- **THEN** the order SHALL be line 9, line 13, line 126 (not line 126, line 13, line 9 as lexicographic sort would produce)
+- **WHEN** user copies with cursors on lines 9, 13, and 126 in `src/app.ts` and `sortPaths` is `true`
+- **THEN** the clipboard SHALL contain:
+
+  ```
+  - @src/app.ts#9
+  - @src/app.ts#13
+  - @src/app.ts#126
+
+  ```
+
+  (sorted numerically, not lexicographically where 126 would precede 13, with trailing newline)
 
 ### Requirement: Single-item copy unaffected by sort setting
 
