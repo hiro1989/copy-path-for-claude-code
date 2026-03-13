@@ -15,7 +15,9 @@ async function copyPath(
     const uris = allUris && 1 < allUris.length ? allUris : [uri]
     if (1 < uris.length) {
       let paths = await Promise.all(uris.map((u) => formatExplorerPath(u, getPath)))
-      const shouldSort = false
+      const shouldSort = vscode.workspace
+        .getConfiguration("copy-path-for-claude-code")
+        .get<boolean>("sortPaths", false)
       if (shouldSort) {
         paths = sortPaths(paths)
       }
@@ -36,7 +38,9 @@ async function copyPath(
     const path = getPath(editor.document.uri)
     if (1 < editor.selections.length) {
       let lines = editor.selections.map((s) => `@${path}${formatLineNumber(s)}`)
-      const shouldSort = false
+      const shouldSort = vscode.workspace
+        .getConfiguration("copy-path-for-claude-code")
+        .get<boolean>("sortPaths", false)
       if (shouldSort) {
         lines = sortPaths(lines)
       }

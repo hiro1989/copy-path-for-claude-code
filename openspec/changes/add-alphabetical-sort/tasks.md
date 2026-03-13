@@ -9,7 +9,7 @@
 - [x] 2.1 Add stub for config-gated sort wiring in `extension.ts`: extract editor `.map()` result into a variable, add conditional sort call site (no-op, always disabled) for both explorer and editor paths
 - [x] 2.2 Write tests for config-gated sort integration in `copyPath` (sort applied when enabled, original order preserved when disabled, single-item no-op with sort enabled)
 - [x] 2.3 Add `copy-path-for-claude-code.sortPaths` boolean property (default `false`) to `package.json` contributes.configuration
-- [ ] 2.4 Implement config reading in `extension.ts`: read `sortPaths` setting and conditionally call `sortPaths` before join
+- [x] 2.4 Implement config reading in `extension.ts`: read `sortPaths` setting and conditionally call `sortPaths` before join
 
 ## 3. Documentation
 
