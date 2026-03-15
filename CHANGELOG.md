@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.5.1] - 2026-03-15
+
+- docs: Add CHANGELOG.md
+
 ## [1.5.0] - 2026-03-13
 
 - feat: Add `sortPaths` setting to sort copied paths alphabetically
