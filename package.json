@@ -15,17 +15,17 @@
   "main": "./dist/extension.js",
   "scripts": {
     "compile": "node esbuild.js",
-    "lint": "run-s --continue-on-error lint:* lint-dry:tsc",
-    "lint-dry": "run-s lint-dry:format lint-dry:oxlint lint-dry:eslint lint-dry:tsc",
+    "lint": "run-s --continue-on-error lint:* lint-dry:tsgo",
+    "lint-dry": "run-s lint-dry:format lint-dry:oxlint lint-dry:eslint lint-dry:tsgo",
     "lint-dry:format": "oxfmt --check",
     "lint-dry:oxlint": "oxlint .",
-    "lint-dry:tsc": "tsc --noEmit --pretty false",
+    "lint-dry:tsgo": "tsgo --noEmit --pretty false",
     "lint:format": "oxfmt",
     "lint:oxlint": "oxlint --format unix . --fix",
     "package": "node esbuild.js --production",
     "release": "run-s package vsce:publish",
     "test": "run-s compile test:compile test:run",
-    "test:compile": "tsc",
+    "test:compile": "tsgo",
     "test:run": "vscode-test",
     "tool:update-all-deps": "pnpm dlx npm-check-updates@22.1.1 --configFileName .ncurc.jsonc",
     "vsce:login": "vsce login arx8",
@@ -39,6 +39,7 @@
     "@types/mocha": "10.0.10",
     "@types/node": "24.11.0",
     "@types/vscode": "1.109.0",
+    "@typescript/native-preview": "7.0.0-dev.20260506.1",
     "@vscode/test-cli": "0.0.12",
     "@vscode/test-electron": "2.5.2",
     "@vscode/vsce": "3.7.1",
@@ -47,8 +48,7 @@
     "npm-run-all2": "8.0.4",
     "oxfmt": "0.48.0",
     "oxlint": "1.63.0",
-    "oxlint-tsgolint": "0.22.1",
-    "typescript": "5.9.3"
+    "oxlint-tsgolint": "0.22.1"
   },
   "contributes": {
     "commands": [

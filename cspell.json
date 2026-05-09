@@ -12,6 +12,7 @@
     "oxfmtrc",
     "oxlint",
     "oxlintrc",
+    "tsgo",
     "tsgolint"
   ],
   // flagWords - list of words to be always considered incorrect
