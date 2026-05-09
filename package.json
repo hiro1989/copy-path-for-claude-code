@@ -27,6 +27,7 @@
     "test": "run-s compile test:compile test:run",
     "test:compile": "tsc",
     "test:run": "vscode-test",
+    "tool:update-all-deps": "pnpm dlx npm-check-updates@22.1.1 --configFileName .ncurc.jsonc",
     "vsce:login": "vsce login arx8",
     "vsce:publish": "vsce publish",
     "vscode:prepublish": "pnpm run package",
