@@ -10,20 +10,24 @@
   },
   "ignorePatterns": [".vscode-test", "dist", "out"],
   "options": {
-    "typeAware": true,
-    "typeCheck": true
+    "denyWarnings": true,
+    "typeAware": true
   },
-  "plugins": [
-    "eslint",
-    "import",
-    "jsdoc",
-    "node",
-    "oxc",
-    "promise",
-    "typescript",
-    "unicorn",
-    "vitest"
+  "overrides": [
+    {
+      "files": ["**/*.test.ts"],
+      "plugins": ["vitest"],
+      "rules": {
+        "vitest/expect-expect": [
+          "error",
+          {
+            "assertFunctionNames": ["expect", "assert.*"]
+          }
+        ]
+      }
+    }
   ],
+  "plugins": ["eslint", "import", "jsdoc", "node", "oxc", "promise", "typescript", "unicorn"],
   "rules": {
     "@typescript-eslint/adjacent-overload-signatures": "error",
     "@typescript-eslint/array-type": "error",
@@ -98,6 +102,15 @@
     "promise/catch-or-return": "error",
     "promise/no-return-wrap": "error",
     "promise/param-names": "error",
+    "sort-imports": [
+      "error",
+      {
+        // perfectionist/sort-import-attributes 相当の設定
+        // oxfmt.sortImports は import specifiers を並び替える機能はないため、それだけこの sort-imports かつ ignoreDeclarationSort で代替している
+        "ignoreDeclarationSort": true
+      }
+    ],
+    "sort-vars": "error",
     "symbol-description": "error",
     "typescript/no-explicit-any": "error",
     "unicorn/catch-error-name": "error",
@@ -197,12 +210,6 @@
     "unicorn/switch-case-braces": "error",
     "unicorn/text-encoding-identifier-case": "error",
     "unicorn/throw-new-error": "error",
-    "jest/expect-expect": [
-      "error",
-      {
-        "assertFunctionNames": ["expect", "assert.*"]
-      }
-    ],
     "yoda": [
       "error",
       "never",
